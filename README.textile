@@ -1,0 +1,13 @@
+h1. JSConf presentation in Qt/QML
+
+* C++ libraries in experimental directory need to be cross compiled for raspberry pi. 
+
+h2. Warnings
+
+* Use GPIO pins with care. Without proper protection circruits you will harm your PI.
+
+h2. Credits
+
+* The code for the Editor and Terminal screens are derived from Andrew Baldwins talk code at https://gitorious.org/devaamo2012_qt5onrpi
+* Photos in the presentation are CC and copyright to the owners linked in the presentation
+

@@ -1,0 +1,44 @@
+SDC2013:
+• DONE merge Editor into CodeSlide
+• TODO get xbox/playstation/wii slide
+• DONE Focus handling in EditorSlide is b0rken
+• DONE Background
+• TODO in-slide animiations (pi-image)
+• TODO try it on the pi
+• DONE EditorSlide hides text that is longer than first page
+• TODO mount solenoids
+
+Next:
+• DONE Aufloesungsprobleme → Safe region: 1840x1020
+• TODO Solenoids an das Metallophon basteln
+• DONE Stromquelle aus Buero
+• DONE Loeten
+• DONE LED mit Raspberry kontrollieren
+• DONE Wie kann man overscan/underscan beim Pi einstellen? → /boot/config.txt
+• DONE Foto von Eben Upton?
+• DONE Raspberry Icon
+• DONE Focus scheisse → make sure ‘Editor’ has editFocus explicitely set (SCHEISSE)
+• DONE GPIO code cross-compilen
+• DONE Editor-objekte anchorn immer im center → centerIn: undefined
+• DONE 1024x768 resolution
+• TODO F1 only works after TAB
+• DONE adapt to 1024x768 resolution
+• DONE slide about GPIO
+• TODO GPIO code example
+• TODO timing: 30 minutes (incl. questions)
+• TODO rot = A5 → SDA0  // A4 → SCL0
+• TODO Stromkabel ueberlegen
+• DONE font in C++
+• TODO remove some code from GPIO slide after copied it
+
+HDMI stuff in config.txt
+# DVI mode, no sound (2 is HDMI)
+#hdmi_drive=1 (DVI mode, no sound)
+# Set monitor mode to DMT
+hdmi_group=2
+# Set monitor resolution to 1024x768 XGA 60Hz (HDMI_DMT_XGA_60)
+hdmi_mode=16
+
+Spaeter:
+• TODO Animationen kaputt, wenn man schnell nacheinander rechts/links macht
+
