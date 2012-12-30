@@ -59,29 +59,6 @@ Presentation {
 
     property int transitionTime: 500;
 
-    Keys.onPressed: {
-        switch (event.key) {
-        case Qt.Key_PageUp:
-            goToPreviousSlide();
-            break;
-        case Qt.Key_PageDown:
-            goToNextSlide();
-            break;
-        case Qt.Key_Escape:
-            console.log("ESCAPE!!!");
-            break;
-        case Qt.Key_F5:
-            console.log("F5");
-            break;
-        case Qt.Key_Period:
-            console.log("period");
-            break;
-        default:
-            console.log("Other Code", event.key);
-            break;
-        }
-    }
-
     Rectangle {
         anchors.fill: parent
         gradient: Gradient {
