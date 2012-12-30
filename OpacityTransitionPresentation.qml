@@ -67,6 +67,18 @@ Presentation {
         case Qt.Key_PageDown:
             goToNextSlide();
             break;
+        case Qt.Key_Escape:
+            console.log("ESCAPE!!!");
+            break;
+        case Qt.Key_F5:
+            console.log("F5");
+            break;
+        case Qt.Key_Period:
+            console.log("period");
+            break;
+        default:
+            console.log("Other Code", event.key);
+            break;
         }
     }
 
