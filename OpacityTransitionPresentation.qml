@@ -59,6 +59,17 @@ Presentation {
 
     property int transitionTime: 500;
 
+    Keys.onPressed: {
+        switch (event.key) {
+        case Qt.Key_PageUp:
+            goToPreviousSlide();
+            break;
+        case Qt.Key_PageDown:
+            goToNextSlide();
+            break;
+        }
+    }
+
     Rectangle {
         anchors.fill: parent
         gradient: Gradient {
