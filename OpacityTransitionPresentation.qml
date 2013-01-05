@@ -117,4 +117,27 @@ Presentation {
 
         return true
     }
+
+    function goToNextSlide() {
+        deck._userNum = 0;
+        if (_faded)
+            return
+        var s = slides[currentSlide];
+        if (deck.inTransition)
+            return false;
+        if (s.animationStates && s.animationStates.length-1 > s.animationStep) {
+            s.animationStep += 1;
+            s.state = s.animationStates[s.animationStep];
+            return;
+        }
+
+        if (deck.currentSlide + 1 < deck.slides.length) {
+            var from = slides[currentSlide]
+            var to = slides[currentSlide + 1]
+            if (switchSlides(from, to, true)) {
+                currentSlide = currentSlide + 1;
+                deck.focus = true;
+            }
+        }
+    }
 }

@@ -87,8 +87,8 @@ OpacityTransitionPresentation {
         }
 
     }
-    Slide {
-      //animationStates: ["state1", "state2", "state3"]
+    AnimationSlide {
+      animationStates: ["state1", "state2", "state3"]
       state: "state1"
       Rectangle {
         anchors.fill: parent
