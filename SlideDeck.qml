@@ -31,179 +31,286 @@ OpacityTransitionPresentation {
     }
 
     Image {
-      anchors.fill: parent
-      source: "tile.jpg"
-      fillMode: Image.Tile
-      smooth: false
+        anchors.fill: parent
+        source: "tile.jpg"
+        fillMode: Image.Tile
+        smooth: false
     }
 
     Slide {
         centeredText: "JavaScript\non the\nRaspberry Pi\n\nThomas Kroeber"
         baseFontSize: titleFontSize
-      Image {
-        source: "raspi_logo.png"
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.top
-        //anchors.topMargin: 100
-        height: 300
-        fillMode: Image.PreserveAspectFit
-        z: -10
-      }
-    }
-    Slide {
-      Text {
-        color: "white"
-        anchors.left: parent.left
-        anchors.verticalCenter: parent.verticalCenter
-        font.pixelSize: 100
-        font.family: "Helvetica"
-        text: "Eben Upton"
-      }
-      Image {
-        source: "eben.png"
-        anchors.bottom: parent.bottom
-        anchors.left: parent.horizontalCenter
-        width: parent.width / 2
-        fillMode: Image.PreserveAspectFit
-        Text {
-          font.pixelSize: 30
-          anchors { bottom: parent.bottom; right: parent.right }
-          text: "http://www.flickr.com/photos/jimkillock/7862804896"
+        Image {
+            source: "raspi_logo.png"
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            //anchors.topMargin: 100
+            height: 300
+            fillMode: Image.PreserveAspectFit
+            z: -10
         }
-      }
     }
     Slide {
-      Image {
-        source: "7805302094_f85507e71d_b_d.jpg"
-        //height: 1000
-        scale: 1.9
-        anchors.centerIn: parent
-        fillMode: Image.PreserveAspectFit
-      }
+        title: "ZX81"
+        anchors.fill:parent
+        Image {
+            source: "1221382771_c35d0759b3_o.jpg"
+        }
+
         Text {
-          font.pixelSize: 30
-          anchors { bottom: parent.bottom; right: parent.right }
-          text: "http://www.flickr.com/photos/33511186@N00/7805302094/in/photostream"
+            font.pixelSize: 30
+            anchors { bottom: parent.bottom; right: parent.right }
+            text: "http://www.flickr.com/photos/9574086@N02/1221382771"
+        }
+    }
+    Slide {
+        id: consoleSlide
+        anchors.fill:parent
+        title: "Game Consoles"
+        Image {
+            id: ps3
+            height: 600
+            x: 100
+            y: -10000
+            fillMode: Image.PreserveAspectFit
+            source: "ps31.png"
+            Behavior on y {
+                animation: bouncebehavior
+            }
+        }
+
+        Image {
+            id: xbox
+            height: 600
+            x: 550
+            y: -10000
+
+            fillMode: Image.PreserveAspectFit
+            source: "xbox.png"
+            Behavior on y {
+                animation: bouncebehavior
+            }
+        }
+        Image {
+            id: wii
+            height: 600
+            y: -10000
+            x: 800
+
+            fillMode: Image.PreserveAspectFit
+            source: "Wii_console.png"
+            Behavior on y {
+                animation: bouncebehavior
+            }
+        }
+        SequentialAnimation {
+            running: consoleSlide.visible
+            PauseAnimation { duration: 500 }
+            ParallelAnimation {
+                id: playbanner
+                NumberAnimation {
+                    target: ps3
+                    easing {
+                        type: Easing.OutElastic
+                        amplitude: 1.0
+                        period: 0.5
+                    }
+                    property: "y"
+                    from: -1000
+                    to: 100
+                    duration: 1000
+                }
+                NumberAnimation {
+                    target: wii
+                    easing {
+                        type: Easing.OutElastic
+                        amplitude: 1.0
+                        period: 0.5
+                    }
+                    property: "y"
+                    from: -800
+                    to: 100
+                    duration: 1000
+                }
+                NumberAnimation {
+                    target: xbox
+                    easing {
+                        type: Easing.OutElastic
+                        amplitude: 1.0
+                        period: 0.5
+                    }
+                    property: "y"
+                    from: -1300
+                    to: 100
+                    duration: 1000
+                }
+            }
+        }
+    }
+    Slide {
+        anchors.fill: parent
+        Text {
+            color: "white"
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 100
+            font.family: "Helvetica"
+            text: "Eben Upton"
+        }
+        Image {
+            source: "eben.png"
+            anchors.bottom: parent.bottom
+            anchors.left: parent.horizontalCenter
+            width: parent.width / 2
+            fillMode: Image.PreserveAspectFit
+            Text {
+                font.pixelSize: 30
+                anchors { bottom: parent.bottom; right: parent.right }
+                text: "http://www.flickr.com/photos/jimkillock/7862804896"
+            }
+        }
+    }
+    Slide {
+        anchors.fill:parent
+        Image {
+            source: "7805302094_f85507e71d_b_d.jpg"
+            //height: 1000
+            width: parent.width
+            anchors.centerIn: parent
+            fillMode: Image.PreserveAspectFit
+        }
+        Text {
+            font.pixelSize: 30
+            anchors { bottom: parent.bottom; right: parent.right }
+            text: "http://www.flickr.com/photos/33511186@N00/7805302094/in/photostream"
         }
 
     }
     AnimationSlide {
-      animationStates: ["state1", "state2", "state3"]
-      state: "state1"
-      Rectangle {
-        anchors.fill: parent
-        clip: true
-        color: "transparent"
-        Image {
-          id: raspi
-          anchors.centerIn: parent
-          width: 1400
-          fillMode: Image.PreserveAspectFit
-          source: "raspi.png"
-          Behavior on rotation { NumberAnimation { duration: 300 } }
-          transform: [
-            Scale {
-              id: imageScale
-              property real scale: 1
-              Behavior on scale { NumberAnimation { duration: 300 } }
-              xScale: scale
-              yScale: scale
-              origin.x: 950
-              origin.y: 620
-            }
-          ]
-          Rectangle {
-            id: cpuRegion
-            width: 189
-            height: 190
-            border.width: 8
-            border.color: "#77ff0000"
-            //                color: "#33ffffff"
+        anchors.fill:parent
+        animationStates: ["state1", "state2", "state3"]
+        state: "state1"
+        Rectangle {
+            anchors.fill: parent
+            clip: true
             color: "transparent"
-            x: 506
-            y: 440
-            Behavior on width { SpringAnimation { spring: 2; damping: .2 } }
-            Behavior on height { SpringAnimation { spring: 2; damping: .2 } }
-            Behavior on x { SpringAnimation { spring: 2; damping: .2 } }
-            Behavior on y { SpringAnimation { spring: 2; damping: .2 } }
-          }
+            Image {
+                id: raspi
+                anchors.centerIn: parent
+                width: 1400
+                fillMode: Image.PreserveAspectFit
+                source: "raspi.png"
+                Behavior on rotation { NumberAnimation { duration: 300 } }
+                transform: [
+                    Scale {
+                        id: imageScale
+                        property real scale: 1
+                        Behavior on scale { NumberAnimation { duration: 300 } }
+                        xScale: scale
+                        yScale: scale
+                        origin.x: 950
+                        origin.y: 620
+                    }
+                ]
+                Rectangle {
+                    id: cpuRegion
+                    width: 189
+                    height: 190
+                    border.width: 8
+                    border.color: "#77ff0000"
+                    //                color: "#33ffffff"
+                    color: "transparent"
+                    x: 506
+                    y: 440
+                    Behavior on width { SpringAnimation { spring: 2; damping: .2 } }
+                    Behavior on height { SpringAnimation { spring: 2; damping: .2 } }
+                    Behavior on x { SpringAnimation { spring: 2; damping: .2 } }
+                    Behavior on y { SpringAnimation { spring: 2; damping: .2 } }
+                }
+            }
         }
-      }
-      states: [
-        State {
-          name: "state1"
-          PropertyChanges {
-            target: imageScale
-            scale: 1.0
-          }
-          PropertyChanges {
-            target: raspi
-            rotation: 0
-          }
-        },
-        State {
-          name: "state2"
-          PropertyChanges {
-            target: imageScale
-            scale: 4.0
-          }
-          PropertyChanges {
-            target: raspi
-            rotation: -90
-          }
-        },
-        State {
-          name: "state3"
-          PropertyChanges {
-            target: imageScale
-            scale: 4.0
-          }
-          PropertyChanges {
-            target: raspi
-            rotation: -90
-          }
-          PropertyChanges {
-            target: cpuRegion
-            width: 15
-            height: 30
-            x: 506+10
-            y: 440+10
-            radius: 0
-            color: "#77ff0000"
-          }
+        states: [
+            State {
+                name: "state1"
+                PropertyChanges {
+                    target: imageScale
+                    scale: 1.0
+                }
+                PropertyChanges {
+                    target: raspi
+                    rotation: 0
+                }
+            },
+            State {
+                name: "state2"
+                PropertyChanges {
+                    target: imageScale
+                    scale: 4.0
+                }
+                PropertyChanges {
+                    target: raspi
+                    rotation: -90
+                }
+            },
+            State {
+                name: "state3"
+                PropertyChanges {
+                    target: imageScale
+                    scale: 4.0
+                }
+                PropertyChanges {
+                    target: raspi
+                    rotation: -90
+                }
+                PropertyChanges {
+                    target: cpuRegion
+                    width: 15
+                    height: 30
+                    x: 506+10
+                    y: 440+10
+                    radius: 0
+                    color: "#77ff0000"
+                }
 
+            }
+        ]
+    }
+    Slide {
+        title: "This is not node!"
+        Image {
+            source: "node.png"
         }
-      ]
+    }
+
+    Slide {
+        anchors.topMargin: 30
+        Image {
+            anchors.horizontalCenter: parent.horizontalCenter
+            height: 300
+            fillMode: Image.PreserveAspectFit
+            source: "Qt-logo.png"
+        }
+        content: [ "Portable C++ framework",
+            "20 years",
+            "Opensource",
+            "Qt5 beta is the latest version",
+            "Complete rewrite of the graphics pipeline"
+        ]
     }
     Slide {
-      anchors.topMargin: 30
-      Image {
-        anchors.horizontalCenter: parent.horizontalCenter
-        height: 300
-        fillMode: Image.PreserveAspectFit
-        source: "Qt-logo.png"
-      }
-      content: [ "Portable C++ framework",
-          "20 years",
-          "Opensource",
-          "Qt5 beta is the latest version",
-          "Complete rewrite of the graphics pipeline"
-          ]
-    }
-    Slide {
-      anchors.topMargin: 30
-      title: "Qt Quick 2.0"
-      content: [ "UI markup for Qt 5",
-          "Declarative Language - much like (s)CSS",
-          "JavaScript for scripting",
-          "items can be implemented in C++",
-          "Shaders, Canvas, Particles"
-      ]
+        anchors.topMargin: 30
+        title: "Qt Quick 2.0"
+        content: [ "UI markup for Qt 5",
+            "Declarative Language - much like (s)CSS",
+            "JavaScript for scripting",
+            "items can be implemented in C++",
+            "Shaders, Canvas, Particles"
+        ]
     }
     EditorSlide {
-      id: qmlintroslide
-      title: "QML"
-      code: "import QtQuick 2.0
+        id: qmlintroslide
+        title: "QML"
+        code: "import QtQuick 2.0
 Rectangle {
 \tcolor: \"#C42C6B\"
 \twidth: 300
@@ -214,8 +321,8 @@ Rectangle {
 "
     }
     CodeSlide {
-      title: "Shaders"
-      code: "import QtQuick 2.0
+        title: "Shaders"
+        code: "import QtQuick 2.0
 ShaderEffect {
 \tanchors.fill: parent
 \tproperty real time: 0.0
@@ -235,13 +342,13 @@ ShaderEffect {
 \t\t\t//gl_FragColor = vec4(0., vertColor, 2. * vertColor, vertColor);
 \t\t}\"
 }"
-      ShaderEffect {
-          anchors.fill: parent
-          property real time: 0.0
-          NumberAnimation on time {
-              from: 0; to: 10; duration: 100000; running: true; loops: -1;
-          }
-          fragmentShader: "
+        ShaderEffect {
+            anchors.fill: parent
+            property real time: 0.0
+            NumberAnimation on time {
+                from: 0; to: 10; duration: 100000; running: true; loops: -1;
+            }
+            fragmentShader: "
               varying highp vec2 qt_TexCoord0;
               uniform float time;
 
@@ -253,7 +360,7 @@ ShaderEffect {
                   float vertColor = 1.0/sqrt(abs(value))/4.0;
                   gl_FragColor = vec4(0., vertColor, 2. * vertColor, vertColor);
               }"
-       }
+        }
     }
     Slide {
         title: "GPIO"
@@ -300,8 +407,8 @@ void registerTypes(const char *uri) {
 };"
     }
     EditorSlide {
-      title: "JavaScript"
-      code: "import QtQuick 2.0
+        title: "JavaScript"
+        code: "import QtQuick 2.0
 import \"experimental\" 1.0
 GPIO {
 \tid: gpio
@@ -341,73 +448,73 @@ GPIO {
 "
     }
     Slide {
-      Title {
-          anchors.horizontalCenter: parent.horizontalCenter
-          anchors.top: parent.top
-          anchors.topMargin: 20
-          text: "Conclusions"
-      }
-      Column {
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.left: parent.left
-        anchors.right: parent.right
-        spacing: 40
+        Title {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: 20
+            text: "Conclusions"
+        }
+        Column {
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.right: parent.right
+            spacing: 40
 
-        Column {
-          anchors.left: parent.left
-          anchors.right: parent.right
-          Text {
-            anchors.topMargin: 40
-            color: "white"
-            font.pixelSize: 100
-            anchors.left: parent.left
-            text: "Checkout Raspberry Pi"
-          }
-          Text {
-            color: "#1e90ff"
-            font.pixelSize: 40
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: "http://raspberrypi.org"
-          }
+            Column {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                Text {
+                    anchors.topMargin: 40
+                    color: "white"
+                    font.pixelSize: 100
+                    anchors.left: parent.left
+                    text: "Checkout Raspberry Pi"
+                }
+                Text {
+                    color: "#1e90ff"
+                    font.pixelSize: 40
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "http://raspberrypi.org"
+                }
+            }
+            Column {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                Text {
+                    color: "white"
+                    font.pixelSize: 100
+                    anchors.left: parent.left
+                    text: "Checkout Qt5 and QML"
+                }
+                Text {
+                    color: "#1e90ff"
+                    font.pixelSize: 40
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "http://qt-project.org"
+                }
+            }
+            Column {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                Text {
+                    color: "white"
+                    font.pixelSize: 100
+                    anchors.left: parent.left
+                    text: "Checkout Nokia L&C"
+                }
+                Text {
+                    color: "#1e90ff"
+                    font.pixelSize: 40
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "http://m.maps.nokia.com"
+                }
+            }
+            Text {
+                color: "#1e90ff"
+                font.pixelSize: 40
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "@cellcortex | cellcortex@gmail.com | thomas.kroeber@nokia.com"
+            }
         }
-        Column {
-          anchors.left: parent.left
-          anchors.right: parent.right
-          Text {
-            color: "white"
-            font.pixelSize: 100
-            anchors.left: parent.left
-            text: "Checkout Qt5 and QML"
-          }
-          Text {
-            color: "#1e90ff"
-            font.pixelSize: 40
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: "http://qt-project.org"
-          }
-        }
-        Column {
-          anchors.left: parent.left
-          anchors.right: parent.right
-          Text {
-            color: "white"
-            font.pixelSize: 100
-            anchors.left: parent.left
-            text: "Checkout Nokia L&C"
-          }
-          Text {
-            color: "#1e90ff"
-            font.pixelSize: 40
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: "http://m.maps.nokia.com"
-          }
-        }
-        Text {
-          color: "#1e90ff"
-          font.pixelSize: 40
-          anchors.horizontalCenter: parent.horizontalCenter
-          text: "@cellcortex | cellcortex@gmail.com | thomas.kroeber@nokia.com"
-        }
-      }
     }
 }
