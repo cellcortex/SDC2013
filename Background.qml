@@ -8,7 +8,7 @@ Item {
 
   Image {
     anchors.fill: parent
-    source: "tile.jpg"
+    source: "pictures/tile.jpg"
     fillMode: Image.Tile
     smooth: false
   }

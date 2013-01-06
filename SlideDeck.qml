@@ -1,7 +1,8 @@
 import QtQuick 2.0
 import Qt.labs.presentation 1.0
 
-OpacityTransitionPresentation {
+AnimationPresentation {
+    id: presentation
     width: 1280
     height: 768
 
@@ -21,6 +22,22 @@ OpacityTransitionPresentation {
         case Qt.Key_F5:
             console.log("F5");
             break;
+        case Qt.Key_F2:
+            if (!terminal.focus) {
+                presentation.focus = false;
+                terminal.focus = true;
+                //terminal.opacity = 1;
+                spring.spring = 3;
+                drop.angle = 0;
+            }
+            else {
+                terminal.focus = false;
+                presentation.focus = true;
+                //terminal.opacity = 0;
+                spring.spring = 0.5;
+                drop.angle = 100;
+            }
+            break;
         case Qt.Key_Period:
             console.log("period");
             break;
@@ -32,7 +49,7 @@ OpacityTransitionPresentation {
 
     Image {
         anchors.fill: parent
-        source: "tile.jpg"
+        source: "pictures/tile.jpg"
         fillMode: Image.Tile
         smooth: false
     }
@@ -41,7 +58,7 @@ OpacityTransitionPresentation {
         centeredText: "JavaScript\non the\nRaspberry Pi\n\nThomas Kroeber"
         baseFontSize: titleFontSize
         Image {
-            source: "raspi_logo.png"
+            source: "pictures/raspi_logo.png"
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             //anchors.topMargin: 100
@@ -54,7 +71,7 @@ OpacityTransitionPresentation {
         title: "ZX81"
         anchors.fill:parent
         Image {
-            source: "1221382771_c35d0759b3_o.jpg"
+            source: "pictures/1221382771_c35d0759b3_o.jpg"
         }
 
         Text {
@@ -73,7 +90,7 @@ OpacityTransitionPresentation {
             x: 100
             y: -10000
             fillMode: Image.PreserveAspectFit
-            source: "ps31.png"
+            source: "pictures/ps31.png"
             Behavior on y {
                 animation: bouncebehavior
             }
@@ -86,7 +103,7 @@ OpacityTransitionPresentation {
             y: -10000
 
             fillMode: Image.PreserveAspectFit
-            source: "xbox.png"
+            source: "pictures/xbox.png"
             Behavior on y {
                 animation: bouncebehavior
             }
@@ -98,7 +115,7 @@ OpacityTransitionPresentation {
             x: 800
 
             fillMode: Image.PreserveAspectFit
-            source: "Wii_console.png"
+            source: "pictures/Wii_console.png"
             Behavior on y {
                 animation: bouncebehavior
             }
@@ -158,7 +175,7 @@ OpacityTransitionPresentation {
             text: "Eben Upton"
         }
         Image {
-            source: "eben.png"
+            source: "pictures/eben.png"
             anchors.bottom: parent.bottom
             anchors.left: parent.horizontalCenter
             width: parent.width / 2
@@ -173,7 +190,7 @@ OpacityTransitionPresentation {
     Slide {
         anchors.fill:parent
         Image {
-            source: "7805302094_f85507e71d_b_d.jpg"
+            source: "pictures/7805302094_f85507e71d_b_d.jpg"
             //height: 1000
             width: parent.width
             anchors.centerIn: parent
@@ -199,7 +216,7 @@ OpacityTransitionPresentation {
                 anchors.centerIn: parent
                 width: 1400
                 fillMode: Image.PreserveAspectFit
-                source: "raspi.png"
+                source: "pictures/raspi.png"
                 Behavior on rotation { NumberAnimation { duration: 300 } }
                 transform: [
                     Scale {
@@ -278,7 +295,7 @@ OpacityTransitionPresentation {
     Slide {
         title: "This is not node!"
         Image {
-            source: "node.png"
+            source: "pictures/node.png"
         }
     }
 
@@ -288,7 +305,7 @@ OpacityTransitionPresentation {
             anchors.horizontalCenter: parent.horizontalCenter
             height: 300
             fillMode: Image.PreserveAspectFit
-            source: "Qt-logo.png"
+            source: "pictures/Qt-logo.png"
         }
         content: [ "Portable C++ framework",
             "20 years",
@@ -412,6 +429,12 @@ void registerTypes(const char *uri) {
 import \"experimental\" 1.0
 GPIO {
 \tid: gpio
+}
+"
+        cheatedCode: "import QtQuick 2.0
+import \"experimental\" 1.0
+GPIO {
+\tid: gpio
 \tTimer {
 \t\tid: tone
 \t\tinterval: 1
@@ -448,12 +471,7 @@ GPIO {
 "
     }
     Slide {
-        Title {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: 20
-            text: "Conclusions"
-        }
+        title: "Conclusions"
         Column {
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
@@ -516,5 +534,17 @@ GPIO {
                 text: "@cellcortex | cellcortex@gmail.com | thomas.kroeber@nokia.com"
             }
         }
+    }
+    Terminal {
+        id: terminal
+        onActiveFocusChanged: console.log("terminal focus",activeFocus)
+        onFocusChanged: console.log("terminal focus",focus)
+        anchors.fill: parent
+        transform: Rotation { id: drop; origin.x: 1920/2; origin.y: 0; axis { x: 1; y: 0; z: 0 }
+            Behavior on angle { SpringAnimation {id: spring; spring: 2; damping: 0.2 } }
+            angle: 100
+        }
+        opacity:(90-drop.angle)*0.01
+        //focus: false
     }
 }

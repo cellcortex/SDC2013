@@ -93,7 +93,7 @@ FocusScope {
             system: particles
             anchors.fill: parent
             groups: ["A"]
-            source: "star.png"
+            source: "pictures/star.png"
             colorVariation: 100
             color: "#00111111"
         }

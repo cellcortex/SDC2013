@@ -54,8 +54,9 @@ Presentation {
 
     property bool inTransition: false;
 
-    property variant fromSlide;
-    property variant toSlide;
+    // Use Empty Object here so we don't get illegal assignment warnings in transitions
+    property variant fromSlide: QtObject {}
+    property variant toSlide: QtObject {}
 
     property int transitionTime: 500;
 
