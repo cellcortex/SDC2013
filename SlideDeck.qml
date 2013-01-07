@@ -72,6 +72,7 @@ AnimationPresentation {
         anchors.fill:parent
         Image {
             source: "pictures/1221382771_c35d0759b3_o.jpg"
+            fillMode: Image.PreserveAspectCrop
         }
 
         Text {
@@ -188,13 +189,13 @@ AnimationPresentation {
         }
     }
     Slide {
-        anchors.fill:parent
+        anchors.fill: parent
         Image {
             source: "pictures/7805302094_f85507e71d_b_d.jpg"
-            //height: 1000
-            width: parent.width
+            width: parent.masterWidth
+            height: parent.masterHeight
             anchors.centerIn: parent
-            fillMode: Image.PreserveAspectFit
+            fillMode: Image.PreserveAspectCrop
         }
         Text {
             font.pixelSize: 30
@@ -204,9 +205,11 @@ AnimationPresentation {
 
     }
     AnimationSlide {
-        anchors.fill:parent
+        id: animationslide
+        anchors.fill: parent
         animationStates: ["state1", "state2", "state3"]
         state: "state1"
+        property real factor: (width * .8) / 1400
         Rectangle {
             anchors.fill: parent
             clip: true
@@ -214,7 +217,7 @@ AnimationPresentation {
             Image {
                 id: raspi
                 anchors.centerIn: parent
-                width: 1400
+                width: parent.width * .8
                 fillMode: Image.PreserveAspectFit
                 source: "pictures/raspi.png"
                 Behavior on rotation { NumberAnimation { duration: 300 } }
@@ -225,24 +228,28 @@ AnimationPresentation {
                         Behavior on scale { NumberAnimation { duration: 300 } }
                         xScale: scale
                         yScale: scale
-                        origin.x: 950
-                        origin.y: 620
+                        origin.x: 900 * animationslide.factor
+                        origin.y: 600 * animationslide.factor
                     }
                 ]
                 Rectangle {
                     id: cpuRegion
-                    width: 189
-                    height: 190
+                    width: 189 * animationslide.factor
+                    height: 190 * animationslide.factor
                     border.width: 8
                     border.color: "#77ff0000"
                     //                color: "#33ffffff"
                     color: "transparent"
-                    x: 506
-                    y: 440
+                    x: 506 * animationslide.factor
+                    y: 440 * animationslide.factor
                     Behavior on width { SpringAnimation { spring: 2; damping: .2 } }
                     Behavior on height { SpringAnimation { spring: 2; damping: .2 } }
                     Behavior on x { SpringAnimation { spring: 2; damping: .2 } }
                     Behavior on y { SpringAnimation { spring: 2; damping: .2 } }
+
+                    PropertyAnimation on opacity  {
+                        id: opacityAnimation
+                    }
                 }
             }
         }
@@ -251,7 +258,7 @@ AnimationPresentation {
                 name: "state1"
                 PropertyChanges {
                     target: imageScale
-                    scale: 1.0
+                    scale: 1
                 }
                 PropertyChanges {
                     target: raspi
@@ -268,6 +275,15 @@ AnimationPresentation {
                     target: raspi
                     rotation: -90
                 }
+                PropertyChanges {
+                    target: opacityAnimation
+                    loops: 20
+                    running: true
+                    easing.type: Easing.InOutQuad
+                    from: 0
+                    to: 1.0
+                    duration: 300
+                }
             },
             State {
                 name: "state3"
@@ -281,10 +297,10 @@ AnimationPresentation {
                 }
                 PropertyChanges {
                     target: cpuRegion
-                    width: 15
-                    height: 30
-                    x: 506+10
-                    y: 440+10
+                    width: 15 * animationslide.factor
+                    height: 30 * animationslide.factor
+                    //x: 506+10 * animationslide.factor
+                    //y: 440+10 * animationslide.factor
                     radius: 0
                     color: "#77ff0000"
                 }
@@ -359,8 +375,11 @@ ShaderEffect {
 \t\t\t//gl_FragColor = vec4(0., vertColor, 2. * vertColor, vertColor);
 \t\t}\"
 }"
-        ShaderEffect {
+        clip: false
+
+        children: ShaderEffect {
             anchors.fill: parent
+            width: 2000
             property real time: 0.0
             NumberAnimation on time {
                 from: 0; to: 10; duration: 100000; running: true; loops: -1;

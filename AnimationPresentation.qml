@@ -60,14 +60,6 @@ Presentation {
 
     property int transitionTime: 500;
 
-    Rectangle {
-        anchors.fill: parent
-        gradient: Gradient {
-            GradientStop { position: 0; color: "lightsteelblue" }
-            GradientStop { position: 1; color: "black" }
-        }
-    }
-
     SequentialAnimation {
         id: forwardTransition
         running: false
