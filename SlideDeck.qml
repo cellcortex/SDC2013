@@ -68,6 +68,14 @@ AnimationPresentation {
         }
     }
     Slide {
+        anchors.fill:parent
+        Image {
+            anchors.centerIn: parent
+            source: "pictures/kid.png"
+            fillMode: Image.PreserveAspectCrop
+        }
+    }
+    Slide {
         title: "ZX81"
         anchors.fill:parent
         Image {
