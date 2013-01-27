@@ -3,8 +3,8 @@ import Qt.labs.presentation 1.0
 
 AnimationPresentation {
     id: presentation
-    width: 1280
-    height: 768
+    width: 1920
+    height: 1080
 
     Keys.onTabPressed: { slides.children[currentSlide].focus = true; }
 
