@@ -537,8 +537,10 @@ GPIO {
 \t\tvar pinMap = { 'C':9, 'D':8, 'F':7, 'G':6, 'A':5, 'H':4 };
 \t\tvar song = \"C DF\tGAHCFD D\tF\tC\";
 \t\tvar current = song[metronom.counter % song.length];
-\t\tif (current != ' ') {
-\t\t\ttone.play(pinMap[current]);
+\t\tvar t = pinMap[current];
+console.log(\"      i: \" + metronom.counter + \"; t: \" + t+ \"; current: \" + current);
+\t\tif (t) {
+\t\t\ttone.play(tone);
 \t\t}
 \t\tmetronom.counter += 1;
 \t}
