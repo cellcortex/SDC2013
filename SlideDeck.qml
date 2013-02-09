@@ -39,10 +39,10 @@ AnimationPresentation {
             }
             break;
         case Qt.Key_Period:
-            console.log("period");
+            //console.log("period");
             break;
         default:
-            console.log("Other Code", event.key);
+            //console.log("Other Code", event.key);
             break;
         }
     }
@@ -52,6 +52,28 @@ AnimationPresentation {
         source: "pictures/tile.jpg"
         fillMode: Image.Tile
         smooth: false
+    }
+
+    ShaderEffect {
+        id: shader
+        visible: shaderSlide.visible
+        anchors.fill: parent
+        property real time: 0.0
+        NumberAnimation on time {
+            from: 0; to: 10; duration: 100000; running: true; loops: -1;
+        }
+        fragmentShader: "
+          varying highp vec2 qt_TexCoord0;
+          uniform float time;
+
+          void main(void) {
+              vec2 uPos = qt_TexCoord0;
+              uPos.y += sin( time + uPos.x * 6.0) * 0.45;
+              uPos.x += sin(-time + uPos.y * 3.0) * 0.25;
+              float value = sin(uPos.y * 2.5) + sin(uPos.x * 10.0);
+              float vertColor = 1.0/sqrt(abs(value))/4.0;
+              gl_FragColor = vec4(0., vertColor, 2. * vertColor, vertColor);
+          }"
     }
 
     Slide {
@@ -96,7 +118,7 @@ AnimationPresentation {
         Image {
             id: ps3
             height: 600
-            x: 100
+            x: parent.width / 10
             y: -10000
             fillMode: Image.PreserveAspectFit
             source: "pictures/ps31.png"
@@ -108,7 +130,7 @@ AnimationPresentation {
         Image {
             id: xbox
             height: 600
-            x: 550
+            x: parent.width / 2
             y: -10000
 
             fillMode: Image.PreserveAspectFit
@@ -121,7 +143,7 @@ AnimationPresentation {
             id: wii
             height: 600
             y: -10000
-            x: 800
+            x: parent.width * 7 / 10
 
             fillMode: Image.PreserveAspectFit
             source: "pictures/Wii_console.png"
@@ -360,8 +382,25 @@ Rectangle {
 }
 
 "
+        cheatedCode: "import QtQuick 2.0
+Rectangle {
+\tcolor: \"#C42C6B\"
+\twidth: 100 * Math.cos(rotation/180*Math.PI) + 200
+\theight: 30+200 * Math.sin(rotation/360*Math.PI)
+\tanchors.centerIn: parent
+\tradius: 40
+\tNumberAnimation on rotation {
+\t\tfrom: 0
+\t\tto: 360
+\t\tloops: -1
+\t\tduration: 3000
+\t}
+}
+
+"
     }
     CodeSlide {
+        id: shaderSlide
         title: "Shaders"
         code: "import QtQuick 2.0
 ShaderEffect {
@@ -373,38 +412,17 @@ ShaderEffect {
 \tfragmentShader: \"
 \t\tvarying highp vec2 qt_TexCoord0;
 \t\tuniform float time;
-
 \t\tvoid main(void) {
 \t\t\tvec2 uPos = qt_TexCoord0;
 \t\t\tuPos.y += sin( time + uPos.x * 6.0) * 0.45;
 \t\t\tuPos.x += sin(-time + uPos.y * 3.0) * 0.25;
 \t\t\tfloat value = sin(uPos.y * 2.5) + sin(uPos.x * 10.0);
 \t\t\tfloat vertColor = 1.0/sqrt(abs(value))/4.0;
-\t\t\t//gl_FragColor = vec4(0., vertColor, 2. * vertColor, vertColor);
+\t\t\tgl_FragColor = vec4(0., vertColor, 2. * vertColor, vertColor);
 \t\t}\"
 }"
         clip: false
 
-        children: ShaderEffect {
-            anchors.fill: parent
-            width: 2000
-            property real time: 0.0
-            NumberAnimation on time {
-                from: 0; to: 10; duration: 100000; running: true; loops: -1;
-            }
-            fragmentShader: "
-              varying highp vec2 qt_TexCoord0;
-              uniform float time;
-
-              void main(void) {
-                  vec2 uPos = qt_TexCoord0;
-                  uPos.y += sin( time + uPos.x * 6.0) * 0.45;
-                  uPos.x += sin(-time + uPos.y * 3.0) * 0.25;
-                  float value = sin(uPos.y * 2.5) + sin(uPos.x * 10.0);
-                  float vertColor = 1.0/sqrt(abs(value))/4.0;
-                  gl_FragColor = vec4(0., vertColor, 2. * vertColor, vertColor);
-              }"
-        }
     }
     Slide {
         title: "GPIO"

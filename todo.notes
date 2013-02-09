@@ -1,12 +1,15 @@
 SDC2013:
 • DONE merge Editor into CodeSlide
-• TODO get xbox/playstation/wii slide
+• DONE get xbox/playstation/wii slide
 • DONE Focus handling in EditorSlide is b0rken
 • DONE Background
-• TODO in-slide animiations (pi-image)
-• TODO try it on the pi
+• DONE in-slide animiations (pi-image)
+• DONE try it on the pi
 • DONE EditorSlide hides text that is longer than first page
 • TODO mount solenoids
+• TODO Adafruit check
+• TODO get stdout and stderr to something accessible from QML
+• TODO shader background fullscreen
 
 Next:
 • DONE Aufloesungsprobleme → Safe region: 1840x1020

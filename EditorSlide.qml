@@ -11,6 +11,8 @@ Slide {
     property string __savedCode
     property real codeFontSize: baseFontSize * 0.6
     property bool autointerpret: true
+    property var errors: null
+    property int __errorIndex: 0
 
     property bool editorFocus: false
 
@@ -36,7 +38,6 @@ Slide {
             id: testparent
             anchors.fill: parent
         }
-
         Rectangle {
             id: background
             anchors.fill: parent
@@ -83,11 +84,17 @@ Slide {
                     cursorDelegate: Rectangle { width: 10; color: "yellow"; opacity: 0.5 }
                     onTextChanged: {
                         if (autointerpret) {
-                            var newtest = Qt.createQmlObject(text,testparent,"test");
-                            if (newtest) {
-                                if (testparent.test) testparent.test.destroy();
-                                testparent.test = newtest;
-                                //testparent.test.anchors.centerIn = testparent;
+                            try {
+                                var newtest = Qt.createQmlObject(text, testparent, "test");
+                                if (newtest) {
+                                    if (testparent.test) testparent.test.destroy();
+                                    testparent.test = newtest;
+                                    //testparent.test.anchors.centerIn = testparent;
+                                    slide.errors = null;
+                                }
+                            } catch (err) {
+                                console.log("errorrrr");
+                                slide.errors = err.qmlErrors;
                             }
                         }
                     }
@@ -108,8 +115,15 @@ Slide {
                 }
             }
         }
+        Rectangle {
+            color: slide.errors ? "red" : "green"
+            width: 50
+            height: 50
+            anchors { right: parent.right; bottom: parent.bottom; margins: 0 }
+        }
+
         Keys.onPressed: {
-            if (event.key==Qt.Key_F1) {
+            if (event.key === Qt.Key_F1) {
                 if (background.opacity==1.0) {
                     background.opacity=0.;
                 } else {
@@ -118,7 +132,7 @@ Slide {
                 }
             }
 
-            else if (event.key==Qt.Key_F3) {
+            else if (event.key === Qt.Key_F3) {
                 if (!__savedCode) {
                     console.log("posting solution");
                     // do the solution
@@ -128,6 +142,21 @@ Slide {
                     console.log("restoring old code");
                     editor.text = __savedCode;
                     delete __savedCode;
+                }
+            }
+            else if (event.key === Qt.Key_F4) {
+                if (slide.errors) {
+                    // go to next error
+                    var splitted = editor.text.split("\n");
+                    var skip = 0;
+                    for (var i = 0; i < slide.errors[slide.__errorIndex].lineNumber-1; ++i) {
+                        skip += splitted[i].length + 1
+                    }
+                    var ln = splitted[slide.errors[slide.__errorIndex].lineNumber-1];
+                    skip += slide.errors[slide.__errorIndex].columnNumber;
+                    editor.cursorPosition = skip;
+                    console.log(slide.errors[slide.__errorIndex].message);
+                    slide.__errorIndex = slide.__errorIndex % slide.errors.length;
                 }
             }
         }
