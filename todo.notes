@@ -8,8 +8,16 @@ SDC2013:
 • DONE EditorSlide hides text that is longer than first page
 • TODO mount solenoids
 • TODO Adafruit check
-• TODO get stdout and stderr to something accessible from QML
-• TODO shader background fullscreen
+• DONE get stdout and stderr to something accessible from QML
+• DONE shader background fullscreen
+• TODO timing: 25 minutes (incl. questions)
+• TODO Rehearse
+• TODO Arduino wiederbeleben
+• TODO Fix rectangles in raspi slide
+• TODO “this is not node-js slide”
+• TODO Fix positioning of images and text
+• TODO display error text in codeslide (F4)
+
 
 Next:
 • DONE Aufloesungsprobleme → Safe region: 1840x1020
@@ -24,7 +32,7 @@ Next:
 • DONE GPIO code cross-compilen
 • DONE Editor-objekte anchorn immer im center → centerIn: undefined
 • DONE 1024x768 resolution
-• TODO F1 only works after TAB
+• DONE F1 only works after TAB
 • DONE adapt to 1024x768 resolution
 • DONE slide about GPIO
 • TODO GPIO code example
