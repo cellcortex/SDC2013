@@ -17,6 +17,7 @@ SDC2013:
 • TODO “this is not node-js slide”
 • TODO Fix positioning of images and text
 • TODO display error text in codeslide (F4)
+• TODO fix Qt slide image positioning, etc
 
 
 Next:
@@ -49,7 +50,4 @@ HDMI stuff in config.txt
 hdmi_group=2
 # Set monitor resolution to 1024x768 XGA 60Hz (HDMI_DMT_XGA_60)
 hdmi_mode=16
-
-Spaeter:
-• TODO Animationen kaputt, wenn man schnell nacheinander rechts/links macht
 

@@ -47,9 +47,6 @@ Presentation {
 
     id: deck
 
-    width: 1280
-    height: 720
-
     textColor: "white"
 
     property bool inTransition: false;

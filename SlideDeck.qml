@@ -3,8 +3,8 @@ import Qt.labs.presentation 1.0
 
 AnimationPresentation {
     id: presentation
-    width: 1920
-    height: 1080
+    width: 1024
+    height: 768
 
     Keys.onTabPressed: { slides.children[currentSlide].focus = true; }
 
@@ -76,17 +76,42 @@ AnimationPresentation {
           }"
     }
 
-    Slide {
-        centeredText: "JavaScript\non the\nRaspberry Pi\n\nThomas Kroeber"
-        baseFontSize: titleFontSize
+    Item {
+        property bool isSlide: true
+        anchors.fill: parent
+        property string notes: ""
+        Text {
+            color: "#77000000"
+            text: "JavaScript\non the\nRaspberry Pi"
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.leftMargin: 20
+            font.pixelSize: parent.height / 6
+            font.family: "Impact"
+        }
+
+        Rectangle {
+            id: titleBox
+            anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+            height: parent.height * 1 / 3;
+            color: "#77000000"
+            Text {
+                color: "#33ffffff"
+                text: "Thomas Kroeber"
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin: 20
+                font.pixelSize: parent.height / 5
+                font.family: "Impact"
+            }
+        }
         Image {
             source: "pictures/raspi_logo.png"
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            //anchors.topMargin: 100
-            height: 300
+            anchors.right: parent.right
+            anchors.verticalCenter: titleBox.top
+            anchors.rightMargin: parent.width / 10
+            height: parent.height / 3
             fillMode: Image.PreserveAspectFit
-            z: -10
         }
     }
     AnimationSlide {
