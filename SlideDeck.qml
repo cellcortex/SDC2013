@@ -89,32 +89,17 @@ AnimationPresentation {
             z: -10
         }
     }
-    Slide {
+    AnimationSlide {
+        id: consoleSlide
         anchors.fill:parent
+        //title: "Game Consoles"
+        animationStates: ["state1", "state2"]
+        state: "state1"
         Image {
             anchors.centerIn: parent
             source: "pictures/kid.png"
             fillMode: Image.PreserveAspectCrop
         }
-    }
-    Slide {
-        title: "ZX81"
-        anchors.fill:parent
-        Image {
-            source: "pictures/1221382771_c35d0759b3_o.jpg"
-            fillMode: Image.PreserveAspectCrop
-        }
-
-        Text {
-            font.pixelSize: 30
-            anchors { bottom: parent.bottom; right: parent.right }
-            text: "http://www.flickr.com/photos/9574086@N02/1221382771"
-        }
-    }
-    Slide {
-        id: consoleSlide
-        anchors.fill:parent
-        title: "Game Consoles"
         Image {
             id: ps3
             height: 600
@@ -152,7 +137,8 @@ AnimationPresentation {
             }
         }
         SequentialAnimation {
-            running: consoleSlide.visible
+            id: dropConsoles
+            running: consoleSlide.state == "state2"
             PauseAnimation { duration: 500 }
             ParallelAnimation {
                 id: playbanner
@@ -339,9 +325,31 @@ AnimationPresentation {
         ]
     }
     Slide {
-        title: "This is not node!"
+        id: nonode
+        //title: "This is not node!"
         Image {
+            anchors.centerIn: parent
             source: "pictures/node.png"
+        }
+        Image {
+            id: nosign
+            anchors.centerIn: parent
+            source: "pictures/no-sign.png"
+            height: 300
+            width: 300
+            opacity: 0
+            scale: 3
+        }
+        SequentialAnimation {
+            PauseAnimation { duration: 500 }
+            running: nonode.visible && !nonode.inTransition
+            ParallelAnimation {
+                NumberAnimation { target: nosign; property: "opacity"; from: 0; to: 1; duration: 500; easing.type: Easing.OutQuart }
+                NumberAnimation { target: nosign; property: "scale"; from: 4; to: 1; duration: 500; easing.type: Easing.InOutQuart }
+            }
+        }
+        Timer {
+
         }
     }
 
