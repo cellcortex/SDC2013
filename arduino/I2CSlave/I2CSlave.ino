@@ -20,6 +20,7 @@ void setup() {
   pinMode(7, OUTPUT);  
   pinMode(8, OUTPUT);  
   pinMode(9, OUTPUT);  
+  pinMode(10, OUTPUT);  
   
   pinMode(13, OUTPUT);  
   // initialize i2c as slave
@@ -27,15 +28,16 @@ void setup() {
    
   // define callbacks for i2c communication
   Wire.onReceive(receiveData);
-  Wire.onRequest(sendData);
+//  Wire.onRequest(sendData);
 
   //Serial.begin(9600); // Debugging only
 }
 
-void loop() {/*
-  digitalWrite(3, 1);
+void loop() {
+  /*
+  digitalWrite(2, HIGH);
   delay(2000);
-  digitalWrite(3, 0);
+  digitalWrite(2, LOW);
   delay(2000);
   */
 }
