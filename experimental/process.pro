@@ -72,3 +72,8 @@ raspi {
     LIBS += -lbcm2835
     DEFINES += "HAS_GPIO"
 }
+
+i2c {
+    message(Building with I2C support)
+    DEFINES += "I2C"
+}

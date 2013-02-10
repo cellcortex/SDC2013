@@ -17,7 +17,7 @@ class GPIO : public QQuickItem
 public:
     GPIO(QQuickItem *parent = 0) : QQuickItem(parent) {
 #ifdef I2C
-      deviceHandle = open("/dev/i2c-0", O_RDWR);
+      deviceHandle = open("/dev/i2c-1", O_RDWR);
       if (deviceHandle < 0) {
         qWarning() << "Error: Couldn't open device";
       }
@@ -37,7 +37,7 @@ public:
 #endif
     }
     ~GPIO() {
-      close(deviceHandle);
+     // close(deviceHandle);
     }
 private:
   int deviceHandle;

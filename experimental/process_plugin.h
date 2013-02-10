@@ -9,7 +9,7 @@
 #include <QtQml/QQmlExtensionPlugin>
 #include <qqml.h>
 #include "process.h"
-#include "gpio.h"
+#include "gpio_i2c.h"
 
 class ProcessPlugin : public QQmlExtensionPlugin
 {
