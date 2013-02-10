@@ -48,7 +48,10 @@ AnimationPresentation {
     }
 
     Image {
-        anchors.fill: parent
+        x: - parent.width
+        y: - parent.height
+        height: parent.height * 3
+        width: parent.width * 3
         source: "pictures/tile.jpg"
         fillMode: Image.Tile
         smooth: false
@@ -76,10 +79,7 @@ AnimationPresentation {
           }"
     }
 
-    Item {
-        property bool isSlide: true
-        anchors.fill: parent
-        property string notes: ""
+    EmptySlide {
         Text {
             color: "#77000000"
             text: "JavaScript\non the\nRaspberry Pi"
@@ -116,12 +116,21 @@ AnimationPresentation {
     }
     AnimationSlide {
         id: consoleSlide
-        anchors.fill:parent
-        //title: "Game Consoles"
+        transition: "pushright"
+//        anchors.fill:parent
         animationStates: ["state1", "state2"]
         state: "state1"
+
+        Rectangle {
+            id: gBox
+            anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+            height: parent.height * 1 / 3;
+            color: "#77000000"
+        }
         Image {
-            anchors.centerIn: parent
+            anchors.left: parent.left
+            anchors.leftMargin: 100
+            y: 215
             source: "pictures/kid.png"
             fillMode: Image.PreserveAspectCrop
         }
@@ -132,9 +141,6 @@ AnimationPresentation {
             y: -10000
             fillMode: Image.PreserveAspectFit
             source: "pictures/ps31.png"
-            Behavior on y {
-                animation: bouncebehavior
-            }
         }
 
         Image {
@@ -142,72 +148,46 @@ AnimationPresentation {
             height: 600
             x: parent.width / 2
             y: -10000
-
             fillMode: Image.PreserveAspectFit
             source: "pictures/xbox.png"
-            Behavior on y {
-                animation: bouncebehavior
-            }
         }
         Image {
             id: wii
             height: 600
-            y: -10000
+            y: -1000
             x: parent.width * 7 / 10
 
             fillMode: Image.PreserveAspectFit
             source: "pictures/Wii_console.png"
-            Behavior on y {
-                animation: bouncebehavior
+        }
+        transitions: Transition {
+                NumberAnimation {
+                targets: [xbox, wii, ps3]
+                properties: "y"
+                duration: 500
+                easing.type: Easing.OutQuad
             }
         }
-        SequentialAnimation {
-            id: dropConsoles
-            running: consoleSlide.state == "state2"
-            PauseAnimation { duration: 500 }
-            ParallelAnimation {
-                id: playbanner
-                NumberAnimation {
-                    target: ps3
-                    easing {
-                        type: Easing.OutElastic
-                        amplitude: 1.0
-                        period: 0.5
-                    }
-                    property: "y"
-                    from: -1000
-                    to: 100
-                    duration: 1000
-                }
-                NumberAnimation {
-                    target: wii
-                    easing {
-                        type: Easing.OutElastic
-                        amplitude: 1.0
-                        period: 0.5
-                    }
-                    property: "y"
-                    from: -800
-                    to: 100
-                    duration: 1000
-                }
-                NumberAnimation {
-                    target: xbox
-                    easing {
-                        type: Easing.OutElastic
-                        amplitude: 1.0
-                        period: 0.5
-                    }
-                    property: "y"
-                    from: -1300
-                    to: 100
-                    duration: 1000
-                }
-            }
-        }
+
+        states: [
+            State {
+                 name: "state1"
+                 PropertyChanges { target: ps3; y: -10000 }
+                 PropertyChanges { target: wii; y: -6000 }
+                 PropertyChanges { target: xbox; y: -3000 }
+             },
+             State {
+                 name: "state2"
+                 PropertyChanges { target: ps3; y: 100 }
+                 PropertyChanges { target: wii; y: 100 }
+                 PropertyChanges { target: xbox; y: 100 }
+             }
+        ]
     }
     Slide {
-        anchors.fill: parent
+        height: parent.height
+        property string transition: "pushup"
+        //anchors.fill: parent
         Text {
             color: "white"
             anchors.left: parent.left
@@ -351,7 +331,6 @@ AnimationPresentation {
     }
     Slide {
         id: nonode
-        //title: "This is not node!"
         Image {
             anchors.centerIn: parent
             source: "pictures/node.png"
@@ -372,26 +351,45 @@ AnimationPresentation {
                 NumberAnimation { target: nosign; property: "opacity"; from: 0; to: 1; duration: 500; easing.type: Easing.OutQuart }
                 NumberAnimation { target: nosign; property: "scale"; from: 4; to: 1; duration: 500; easing.type: Easing.InOutQuart }
             }
-        }
-        Timer {
-
+            NumberAnimation {
+                target: presentation
+                property: "anchors.topMargin"
+                from: 0
+                to: -300
+                duration: 5000
+            }
         }
     }
 
-    Slide {
-        anchors.topMargin: 30
-        Image {
-            anchors.horizontalCenter: parent.horizontalCenter
-            height: 300
-            fillMode: Image.PreserveAspectFit
-            source: "pictures/Qt-logo.png"
+    EmptySlide {
+        id: qtslide
+        Rectangle {
+            id: qttitle
+            color: "#77000000"
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            height: parent.height * 1 / 3
+            Image {
+                anchors.verticalCenter: parent.bottom
+                anchors.right: parent.right
+                anchors.margins: parent.width / 20
+                height: parent.height * .8
+                fillMode: Image.PreserveAspectFit
+                source: "pictures/Qt-logo.png"
+            }
         }
-        content: [ "Portable C++ framework",
-            "20 years",
-            "Opensource",
-            "Qt5 beta is the latest version",
-            "Complete rewrite of the graphics pipeline"
-        ]
+        Text {
+            anchors.top: qttitle.bottom
+            anchors.margins: parent.width / 10
+            anchors.left: parent.left
+            text: "UI markup for Qt 5\n
+Declarative Language - much like (s)CSS\n
+JavaScript for scripting\n
+items can be implemented in C++\n
+Shaders, Canvas, Particles\n"
+            font.pixelSize: qtslide.fontSize
+            font.weight: Font.Light
+            color: "#77ffffff"
+        }
     }
     Slide {
         anchors.topMargin: 30
