@@ -4,12 +4,14 @@ import Qt.labs.presentation 1.0
 Item {
     id: slide;
     visible: false
-    anchors.fill: parent
+    width: parent.width
+    height: parent.height
 
     property string notes
     property bool isSlide: true
     property var animationStates: []
     property int animationStep: 0
+    property string transition: ""
 
     onVisibleChanged: {
         animationStep = 0;
