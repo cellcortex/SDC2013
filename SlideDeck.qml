@@ -534,7 +534,7 @@ GPIO {
 \t}
 
 \tfunction player() {
-\t\tvar pinMap = { 'C':3, 'D':6, 'F':5, 'G':7, 'A':5, 'H':2 };
+\t\tvar pinMap = { 'C':3, 'D':6, 'F':5, 'G':7, 'A':4, 'H':2 };
 \t\tvar song = \"CDF G G A G F C D F F D C D   CD F G G A G F C D F F D D C    \";
 \t\tvar current = song[metronom.counter % song.length];
 \t\tvar t = pinMap[current];
