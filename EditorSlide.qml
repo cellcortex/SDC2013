@@ -161,5 +161,13 @@ Slide {
             }
         }
         Keys.onEscapePressed: { slide.editorFocus = false; slide.focus = true; }
+        Keys.onTabPressed: {
+            // TAB doesn't work on the raspberry pi
+            var old;
+            old = cursorPosition;
+            text = text.slice(0, old) + "\t" + text.slice(old, text.length);
+            cursorPosition = old + 1;
+        }
+
     }
 }
