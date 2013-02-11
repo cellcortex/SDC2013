@@ -191,9 +191,9 @@ EmptySlide {
         Keys.onTabPressed: {
             // TAB doesn't work on the raspberry pi
             var old;
-            old = cursorPosition;
-            text = text.slice(0, old) + "\t" + text.slice(old, text.length);
-            cursorPosition = old + 1;
+            old = editor.cursorPosition;
+            editor.text = editor.text.slice(0, old) + "\t" + editor.text.slice(old, editor.text.length);
+            editor.cursorPosition = old + 1;
         }
 
     }
