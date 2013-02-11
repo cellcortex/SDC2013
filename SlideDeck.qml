@@ -663,10 +663,19 @@ void registerTypes(const char *uri) {
 import \"experimental\" 1.0
 GPIO {
 \tid: gpio
+\tTimer {
+\t\tid: metronom
+\t\tproperty int counter: 0
+\t\trepeat: true
+\t\tonTriggered: player()
+\t\tinterval: 200
+\t\trunning: false
+\t}
 \tfunction player() {
 \t\tvar pinMap = { 'C':3, 'D':6, 'F':5, 'G':7, 'A':4, 'H':2 };
 \t\tvar song = \"CDF G G A G F C D F F D C D      CDF G G A G F C D F F D D C    \";
 \t\tvar current = song[metronom.counter % song.length];
+\t\t//gpio.digitalWrite(pinMap[current], 1);
 \t}
 }
 "
