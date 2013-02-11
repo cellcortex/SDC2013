@@ -9,7 +9,7 @@ Rectangle {
     Text {
         id: link
         anchors.centerIn: parent
-        color: "#66ffffff"
+        color: "#444444"
         font.pixelSize: presentation.height / 30
         font.family: presentation.fontFamily
     }

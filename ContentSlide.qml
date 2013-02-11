@@ -15,7 +15,7 @@ EmptySlide {
             anchors.verticalCenter: parent.verticalCenter
             anchors.leftMargin: 100
             height: slide.height / 12
-            color: "#33ffffff"
+            color: "#333333"
             text: title
             font.pixelSize: qttitle.height / 4
             font.family: headFont.name
@@ -31,6 +31,6 @@ EmptySlide {
         font.pixelSize: parent.height * 0.05
         font.weight: Font.Light
         font.family: presentation.fontFamily
-        color: "#77ffffff"
+        color: "#777777"
     }
 }

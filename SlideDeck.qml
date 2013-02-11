@@ -80,13 +80,13 @@ AnimationPresentation {
             height: parent.height * 1 / 3;
             color: "#77000000"
             Text {
-                color: "#33ffffff"
+                color: "#333333"
                 text: "Thomas Kroeber"
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: 90
                 font.pixelSize: parent.height / 5
-                font.family: "Impact"
+                font.family: headFont.name
             }
         }
         Image {
@@ -237,6 +237,7 @@ AnimationPresentation {
         Text {
             color: "black"
             anchors.left: parent.left
+            anchors.leftMargin: .1 * parent.height
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 100
             font.family: headFont.name
@@ -409,7 +410,7 @@ AnimationPresentation {
             height: parent.height * 1 / 4
             Text {
                 anchors.centerIn: parent
-                color: "#33ffffff"
+                color: "#333333"
                 text: "slow CPU - fast GPU"
                 font.pixelSize: qttitle.height / 4
                 font.family: headFont.name
@@ -487,19 +488,21 @@ AnimationPresentation {
                 height: qt5.height + qturl.height
                 Text {
                     id: qt5
-                    color: "#33ffffff"
+                    color: "#333333"
                     text: "Qt 5"
                     //anchors.bottom: parent.verticalCenter
                     font.pixelSize: qttitle.height / 4
-                    font.family: "Impact"
+                    font.family: presentation.fontFamily
+                    font.weight: Font.Bold
                 }
                 Text {
                     id: qturl
-                    color: "#33ffffff"
+                    color: "#333333"
                     text: "http://qt-project.org"
                     anchors.top: qt5.bottom
                     font.pixelSize: qttitle.height / 8
                     font.family: "Impact"
+                    font.weight: Font.Bold
                 }
             }
         }
@@ -710,13 +713,13 @@ GPIO {
     ContentSlide {
         title: "Thanks!"
         Text {
-            color: "#33ffffff"
+            color: "#333333"
             text: "@cellcortex | cellcortex@gmail.com | thomas.kroeber@nokia.com"
             anchors.right: parent.right
             anchors.rightMargin: 100
             y: titleBox.height - height - height / 2
             font.pixelSize: titleBox.height / 8
-            font.family: "Impact"
+            font.weight: Font.Bold
         }
     }
     Terminal {
