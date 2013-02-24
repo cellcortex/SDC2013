@@ -6,24 +6,26 @@ SDC2013:
 • DONE in-slide animiations (pi-image)
 • DONE try it on the pi
 • DONE EditorSlide hides text that is longer than first page
-• TODO mount solenoids
-• TODO Adafruit check
+• DONE mount solenoids
+• DONE Adafruit check
 • DONE get stdout and stderr to something accessible from QML
 • DONE shader background fullscreen
 • TODO timing: 25 minutes (incl. questions)
 • TODO Rehearse
-• TODO Arduino wiederbeleben
-• TODO Fix rectangles in raspi slide
+• DONE Arduino wiederbeleben
+• DONE Fix rectangles in raspi slide
 • DONE “this is not node-js slide”
-• TODO Fix positioning of images and text
+• DONE Fix positioning of images and text
 • TODO display error text in codeslide (F4)
-• TODO backup SD-card
-• TODO fix Qt slide image positioning, etc
+• DONE backup SD-card
+• DONE fix Qt slide image positioning, etc
+• TODO Nicer codeslide showcase image
+• TODO Conclusion slide
 
 
 Next:
 • DONE Aufloesungsprobleme → Safe region: 1840x1020
-• TODO Solenoids an das Metallophon basteln
+• DONE Solenoids an das Metallophon basteln
 • DONE Stromquelle aus Buero
 • DONE Loeten
 • DONE LED mit Raspberry kontrollieren
@@ -37,12 +39,12 @@ Next:
 • DONE F1 only works after TAB
 • DONE adapt to 1024x768 resolution
 • DONE slide about GPIO
-• TODO GPIO code example
-• TODO timing: 30 minutes (incl. questions)
-• TODO rot = A5 → SDA0  // A4 → SCL0
-• TODO Stromkabel ueberlegen
+• DONE GPIO code example
+• DONE timing: 30 minutes (incl. questions)
+• DONE rot = A5 → SDA0  // A4 → SCL0
+• DONE Stromkabel ueberlegen
 • DONE font in C++
-• TODO remove some code from GPIO slide after copied it
+• DONE remove some code from GPIO slide after copied it
 
 HDMI stuff in config.txt
 # DVI mode, no sound (2 is HDMI)

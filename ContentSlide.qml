@@ -22,7 +22,7 @@ EmptySlide {
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
             anchors.leftMargin: 100
-            height: qt5.height + qturl.height
+            height: slide.height / 12
             color: "#33ffffff"
             text: title
             font.pixelSize: qttitle.height / 4

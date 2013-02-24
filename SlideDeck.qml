@@ -67,6 +67,7 @@ AnimationPresentation {
         NumberAnimation on time {
             from: 0; to: 10; duration: 100000; running: true; loops: -1;
         }
+        Behavior on opacity { PropertyAnimation { duration: 1000 } }
         fragmentShader: "
           varying highp vec2 qt_TexCoord0;
           uniform float time;
@@ -87,7 +88,7 @@ AnimationPresentation {
             text: "JavaScript\non the\nRaspberry Pi"
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 20
+            anchors.leftMargin: 40
             font.pixelSize: parent.height / 6
             font.family: "Impact"
         }
@@ -102,7 +103,7 @@ AnimationPresentation {
                 text: "Thomas Kroeber"
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.leftMargin: 20
+                anchors.leftMargin: 40
                 font.pixelSize: parent.height / 5
                 font.family: "Impact"
             }
@@ -440,6 +441,7 @@ AnimationPresentation {
     }
     EditorSlide {
         id: qmlintroslide
+        showEditor: false
         title: "QML"
         code: "import QtQuick 2.0
 Rectangle {
@@ -538,6 +540,7 @@ void registerTypes(const char *uri) {
     }
     EditorSlide {
         title: "JavaScript"
+        showEditor: true
         code: "import QtQuick 2.0
 import \"experimental\" 1.0
 GPIO {

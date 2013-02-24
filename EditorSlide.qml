@@ -2,24 +2,35 @@ import QtQuick 2.0
 import Qt.labs.presentation 1.0
 
 
-Slide {
+EmptySlide {
     id: slide;
 
+    property string title
     property string codeFontFamily: parent.codeFontFamily
     property string code
     property string cheatedCode
     property string __savedCode
-    property real codeFontSize: baseFontSize * 0.6
+    property real codeFontSize: fontSize * 0.6
     property bool autointerpret: true
     property var errors: null
     property int __errorIndex: 0
 
     property bool editorFocus: false
+    property bool showEditor: true
 
     onVisibleChanged: {
-        scope.focus = true;
-        editorFocus = slide.visible;
-        editor.forceActiveFocus();
+        slide.focus = true;
+        if (slide.showEditor) {
+            scope.focus = true;
+            editorFocus = slide.visible;
+            editor.forceActiveFocus();
+        }
+    }
+
+    onShowEditorChanged: {
+        if (slide.focus && showEditor) {
+            editor.forceActiveFocus();
+        }
     }
 
     onFocusChanged: {
@@ -29,9 +40,26 @@ Slide {
         }
     }
 
+    Item {
+        id: title
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        height: parent.height * 1 / 4
+        Text {
+            anchors.left: parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.leftMargin: 100
+            color: "#77000000"
+            text: slide.title
+            font.pixelSize: title.height / 4
+            font.family: "Impact"
+        }
+    }
+
+
+
     FocusScope {
         id: scope
-        anchors.fill: parent
+        anchors { left: parent.left; bottom: parent.bottom; right: parent.right; top: title.bottom }
         clip: true
         Item {
             property Item test;
@@ -41,20 +69,25 @@ Slide {
         Rectangle {
             id: background
             anchors.fill: parent
-            radius: height / 10
-            //opacity: 0.
+            anchors.leftMargin: slide.showEditor ? 100 : 2000
+            //radius: height / 10
+            opacity: slide.showEditor ? 1. : 0.
+            color: "#77000000"
+            /*
             gradient: Gradient {
                 GradientStop { position: 0; color: Qt.rgba(0.8, 0.8, 0.8, 0.5); }
                 GradientStop { position: 1; color: Qt.rgba(0.2, 0.2, 0.2, 0.5); }
-            }
-            border.color: slide.textColor;
-            border.width: height / 250;
+            }*/
+            //border.color: slide.textColor;
+            //border.width: height / 250;
             antialiasing: true
             Behavior on opacity { NumberAnimation { duration: 300 } }
+            Behavior on anchors.leftMargin { SpringAnimation {spring: 2; damping: 0.2 } }
 
             Flickable {
                 id: flick
                 opacity: 1
+                anchors.margins: 30
                 anchors.fill: parent
                 contentWidth: background.width
                 contentHeight: background.height
@@ -81,7 +114,6 @@ Slide {
                     font.pixelSize: slide.codeFontSize
                     focus: editorFocus
 
-                    onFocusChanged: { console.log("TextEdit focus", focus); }
                     cursorDelegate: Rectangle { width: 10; color: "yellow"; opacity: 0.5 }
                     onTextChanged: {
                         if (autointerpret) {
@@ -102,16 +134,7 @@ Slide {
                     Component.onCompleted: {
                         text=slide.code;
                     }
-                    //font.weight: Font.Bold
                     color: "white"
-                    /*Keys.onTabPressed: {
-                    // Wierd... tab didn't work on HW??
-                    var ocp;
-                    ocp = cursorPosition;
-                    text = text.slice(0,ocp) + "\t" + text.slice(ocp,text.length);
-                    cursorPosition = ocp+1;
-                }*/
-
                     onCursorRectangleChanged: flick.ensureVisible(cursorRectangle)
                 }
             }
@@ -125,11 +148,12 @@ Slide {
 
         Keys.onPressed: {
             if (event.key === Qt.Key_F1) {
-                if (background.opacity==1.0) {
-                    background.opacity=0.;
+                if (slide.showEditor) {
+                    slide.showEditor = false;
+                    slide.focus = false;
                 } else {
-                    background.opacity=1.0;
                     slide.editorFocus = true; slide.focus = true;
+                    slide.showEditor = true;
                 }
             }
 
@@ -170,5 +194,24 @@ Slide {
             cursorPosition = old + 1;
         }
 
+    }
+    Keys.onPressed: {
+        if (event.key === Qt.Key_F1) {
+            if (slide.focus) {
+                if (slide.showEditor) {
+                    slide.showEditor = false;
+                    slide.focus = false;
+                } else {
+                    slide.editorFocus = true; slide.focus = true;
+                    slide.showEditor = true;
+                    editor.forceActiveFocus();
+                }
+            } else {
+                slide.focus = true;
+            }
+        }
+        if (event.key === Qt.Key_Escape) {
+            slide.editorFocus = false; slide.focus = true;
+        }
     }
 }
