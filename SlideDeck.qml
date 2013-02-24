@@ -3,10 +3,10 @@ import Qt.labs.presentation 1.0
 
 AnimationPresentation {
     id: presentation
-    width: 1024
-    height: 768
+    width: 1920
+    height: 1080
 
-    Keys.onTabPressed: { slides.children[currentSlide].focus = true; }
+    Keys.onTabPressed: { slides[currentSlide].focus = true; }
 
     Keys.onPressed: {
         switch (event.key) {
@@ -329,8 +329,13 @@ AnimationPresentation {
             }
         ]
     }
-    Slide {
+    EmptySlide {
         id: nonode
+        Rectangle {
+            color: "#77000000"
+            anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+            height: parent.height * 1 / 4
+        }
         Image {
             anchors.centerIn: parent
             source: "pictures/node.png"
@@ -363,6 +368,7 @@ AnimationPresentation {
 
     EmptySlide {
         id: qtslide
+        transition: "pushup"
         Rectangle {
             id: qttitle
             color: "#77000000"
@@ -376,13 +382,22 @@ AnimationPresentation {
                 fillMode: Image.PreserveAspectFit
                 source: "pictures/Qt-logo.png"
             }
+            Text {
+                color: "#33ffffff"
+                text: "Qt and Qt Quick"
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin: 20
+                font.pixelSize: parent.height / 4
+                font.family: "Impact"
+            }
         }
         Text {
             anchors.top: qttitle.bottom
-            anchors.margins: parent.width / 10
+            anchors.margins: parent.width / 20
             anchors.left: parent.left
-            text: "UI markup for Qt 5\n
-Declarative Language - much like (s)CSS\n
+            text: "Cross Platform C++ Framework\n
+QML: Declarative Language - much like (s)CSS\n
 JavaScript for scripting\n
 items can be implemented in C++\n
 Shaders, Canvas, Particles\n"
@@ -390,16 +405,6 @@ Shaders, Canvas, Particles\n"
             font.weight: Font.Light
             color: "#77ffffff"
         }
-    }
-    Slide {
-        anchors.topMargin: 30
-        title: "Qt Quick 2.0"
-        content: [ "UI markup for Qt 5",
-            "Declarative Language - much like (s)CSS",
-            "JavaScript for scripting",
-            "items can be implemented in C++",
-            "Shaders, Canvas, Particles"
-        ]
     }
     EditorSlide {
         id: qmlintroslide

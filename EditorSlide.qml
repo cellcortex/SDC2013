@@ -19,11 +19,11 @@ Slide {
     onVisibleChanged: {
         scope.focus = true;
         editorFocus = slide.visible;
-        //editor.forceActiveFocus();
+        editor.forceActiveFocus();
     }
 
     onFocusChanged: {
-        console.log("Slide Focus: ", slide.focus);
+        //console.log("Slide Focus: ", slide.focus);
         if (slide.focus && editorFocus) {
             editor.forceActiveFocus();
         }
@@ -41,7 +41,8 @@ Slide {
         Rectangle {
             id: background
             anchors.fill: parent
-            radius: height / 10;
+            radius: height / 10
+            opacity: 0.
             gradient: Gradient {
                 GradientStop { position: 0; color: Qt.rgba(0.8, 0.8, 0.8, 0.5); }
                 GradientStop { position: 1; color: Qt.rgba(0.2, 0.2, 0.2, 0.5); }
