@@ -510,6 +510,11 @@ void registerTypes(const char *uri) {
 import \"experimental\" 1.0
 GPIO {
 \tid: gpio
+\tfunction player() {
+\t\tvar pinMap = { 'C':3, 'D':6, 'F':5, 'G':7, 'A':4, 'H':2 };
+\t\tvar song = \"CDF G G A G F C D F F D C D      CDF G G A G F C D F F D D C    \";
+\t\tvar current = song[metronom.counter % song.length];
+\t}
 }
 "
         cheatedCode: "import QtQuick 2.0
@@ -539,13 +544,12 @@ GPIO {
 \t}
 
 \tfunction player() {
-\t\tvar pinMap = { 'C':9, 'D':8, 'F':7, 'G':6, 'A':5, 'H':4 };
-\t\tvar song = \"C DF\tGAHCFD D\tF\tC\";
+\t\tvar pinMap = { 'C':3, 'D':6, 'F':5, 'G':7, 'A':4, 'H':2 };
+\t\tvar song = \"CDF G G A G F C D F F D C D      CDF G G A G F C D F F D D C    \";
 \t\tvar current = song[metronom.counter % song.length];
 \t\tvar t = pinMap[current];
-console.log(\"      i: \" + metronom.counter + \"; t: \" + t+ \"; current: \" + current);
 \t\tif (t) {
-\t\t\ttone.play(tone);
+\t\t\ttone.play(t);
 \t\t}
 \t\tmetronom.counter += 1;
 \t}
