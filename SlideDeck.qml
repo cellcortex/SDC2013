@@ -137,6 +137,12 @@ AnimationPresentation {
             fillMode: Image.PreserveAspectCrop
         }
         Image {
+            x: parent.width * .5
+            y: parent.height * .3
+            source: "pictures/zx81.png"
+            fillMode: Image.PreserveAspectCrop
+        }
+        Image {
             id: ps3
             height: 600
             x: parent.width * 2 / 10
