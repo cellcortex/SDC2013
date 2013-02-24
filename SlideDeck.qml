@@ -5,6 +5,8 @@ AnimationPresentation {
     id: presentation
     width: 1920
     height: 1080
+    //width: 1024
+    //height: 768
 
     Keys.onTabPressed: { slides[currentSlide].focus = true; }
 
@@ -137,7 +139,7 @@ AnimationPresentation {
         Image {
             id: ps3
             height: 600
-            x: parent.width / 10
+            x: parent.width * 2 / 10
             y: -10000
             fillMode: Image.PreserveAspectFit
             source: "pictures/ps31.png"
@@ -230,7 +232,6 @@ AnimationPresentation {
         anchors.fill: parent
         animationStates: ["state1", "state2", "state3"]
         state: "state1"
-        property real factor: (width * .8) / 1400
         Rectangle {
             anchors.fill: parent
             clip: true
@@ -238,7 +239,7 @@ AnimationPresentation {
             Image {
                 id: raspi
                 anchors.centerIn: parent
-                width: parent.width * .8
+                height: presentation.height * .9
                 fillMode: Image.PreserveAspectFit
                 source: "pictures/raspi.png"
                 Behavior on rotation { NumberAnimation { duration: 300 } }
@@ -249,20 +250,20 @@ AnimationPresentation {
                         Behavior on scale { NumberAnimation { duration: 300 } }
                         xScale: scale
                         yScale: scale
-                        origin.x: 900 * animationslide.factor
-                        origin.y: 600 * animationslide.factor
+                        origin.x: .600 * raspi.width
+                        origin.y: .650 * raspi.height
                     }
                 ]
                 Rectangle {
                     id: cpuRegion
-                    width: 189 * animationslide.factor
-                    height: 190 * animationslide.factor
+                    width: .142 * raspi.width
+                    height: .205 * raspi.height
                     border.width: 8
                     border.color: "#77ff0000"
                     //                color: "#33ffffff"
                     color: "transparent"
-                    x: 506 * animationslide.factor
-                    y: 440 * animationslide.factor
+                    x: .357 * raspi.width
+                    y: .450 * raspi.height
                     Behavior on width { SpringAnimation { spring: 2; damping: .2 } }
                     Behavior on height { SpringAnimation { spring: 2; damping: .2 } }
                     Behavior on x { SpringAnimation { spring: 2; damping: .2 } }
@@ -272,6 +273,9 @@ AnimationPresentation {
                         id: opacityAnimation
                     }
                 }
+            }
+            Text {
+                text: "Broadcom BCM2835\n12mm x 12mm\nARM11"
             }
         }
         states: [
@@ -318,12 +322,14 @@ AnimationPresentation {
                 }
                 PropertyChanges {
                     target: cpuRegion
-                    width: 15 * animationslide.factor
-                    height: 30 * animationslide.factor
-                    //x: 506+10 * animationslide.factor
-                    //y: 440+10 * animationslide.factor
-                    radius: 0
+                    width: .142 * raspi.width / 11
+                    height: .30 * raspi.height * 2 / 11
+                    x: .4 * raspi.width
+                    y: .5 * raspi.height
+                    radius: 1
                     color: "#77ff0000"
+                    border.width: 2
+                    border.color: "#ffff0000"
                 }
 
             }
@@ -375,34 +381,54 @@ AnimationPresentation {
             anchors { left: parent.left; right: parent.right; top: parent.top }
             height: parent.height * 1 / 3
             Image {
-                anchors.verticalCenter: parent.bottom
-                anchors.right: parent.right
+                id: qtlogo
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
                 anchors.margins: parent.width / 20
                 height: parent.height * .8
                 fillMode: Image.PreserveAspectFit
                 source: "pictures/Qt-logo.png"
             }
-            Text {
-                color: "#33ffffff"
-                text: "Qt and Qt Quick"
-                anchors.left: parent.left
+            Rectangle {
+                anchors.left: qtlogo.right
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.leftMargin: 20
-                font.pixelSize: parent.height / 4
-                font.family: "Impact"
+                anchors.leftMargin: 100
+                border.width: 1
+                border.color: "red"
+                height: qt5.height + qturl.height
+                Text {
+                    id: qt5
+                    color: "#33ffffff"
+                    text: "Qt 5"
+                    //anchors.bottom: parent.verticalCenter
+                    font.pixelSize: qttitle.height / 4
+                    font.family: "Impact"
+                }
+                Text {
+                    id: qturl
+                    color: "#33ffffff"
+                    text: "http://qt-project.org"
+                    anchors.top: qt5.bottom
+                    font.pixelSize: qttitle.height / 8
+                    font.family: "Impact"
+                }
             }
         }
         Text {
             anchors.top: qttitle.bottom
-            anchors.margins: parent.width / 20
+            //anchors.leftMargin: parent.width / 20
+            anchors.topMargin: parent.height * .05
             anchors.left: parent.left
-            text: "Cross Platform C++ Framework\n
-QML: Declarative Language - much like (s)CSS\n
-JavaScript for scripting\n
-items can be implemented in C++\n
-Shaders, Canvas, Particles\n"
-            font.pixelSize: qtslide.fontSize
+            textFormat: Text.StyledText
+            text: "<ul><li>Cross Platform C++ Framework</li>
+<li><b>QML</b>: Declarative Language - much like (s)CSS</li>
+<li>OpenGL</li>
+<li>JavaScript for scripting</li>
+<li>items can be implemented in C++</li>
+<li>Shaders, Canvas, Particles</li></ul>"
+            font.pixelSize: parent.height * 0.05
             font.weight: Font.Light
+            font.family: presentation.fontFamily
             color: "#77ffffff"
         }
     }
@@ -460,14 +486,14 @@ ShaderEffect {
         clip: false
 
     }
-    Slide {
+    ContentSlide {
+        transition: "pushup"
         title: "GPIO"
-        content: ["CPU pins that can be programmed",
-            "Serial",
-            "I<sup>2</sup>C",
-            "Data pins (in/out)",
-            "PWM generator"
-        ]
+        content: "<ul><li>CPU pins that can be programmed</li>
+<li>Serial</li>
+<li>I<sup>2</sup>C</li>
+<li>Data pins (in/out)</li>
+<li>PWM generator</li></ul>"
     }
     CodeSlide {
         title: "C++"
@@ -559,68 +585,14 @@ GPIO {
     }
     Slide {
         title: "Conclusions"
-        Column {
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.right: parent.right
-            spacing: 40
 
-            Column {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                Text {
-                    anchors.topMargin: 40
-                    color: "white"
-                    font.pixelSize: 100
-                    anchors.left: parent.left
-                    text: "Checkout Raspberry Pi"
-                }
-                Text {
-                    color: "#1e90ff"
-                    font.pixelSize: 40
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "http://raspberrypi.org"
-                }
-            }
-            Column {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                Text {
-                    color: "white"
-                    font.pixelSize: 100
-                    anchors.left: parent.left
-                    text: "Checkout Qt5 and QML"
-                }
-                Text {
-                    color: "#1e90ff"
-                    font.pixelSize: 40
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "http://qt-project.org"
-                }
-            }
-            Column {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                Text {
-                    color: "white"
-                    font.pixelSize: 100
-                    anchors.left: parent.left
-                    text: "Checkout Nokia L&C"
-                }
-                Text {
-                    color: "#1e90ff"
-                    font.pixelSize: 40
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "http://m.maps.nokia.com"
-                }
-            }
             Text {
                 color: "#1e90ff"
                 font.pixelSize: 40
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "@cellcortex | cellcortex@gmail.com | thomas.kroeber@nokia.com"
             }
-        }
+
     }
     Terminal {
         id: terminal
