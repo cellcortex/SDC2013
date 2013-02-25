@@ -18,6 +18,8 @@ EmptySlide {
     property bool editorFocus: false
     property bool showEditor: true
 
+    property var testparent: testhook
+
     onVisibleChanged: {
         slide.focus = true;
         if (slide.showEditor) {
@@ -63,7 +65,7 @@ EmptySlide {
         clip: true
         Item {
             property Item test;
-            id: testparent
+            id: testhook
             anchors.fill: parent
         }
         Rectangle {
@@ -126,7 +128,7 @@ EmptySlide {
                                     slide.errors = null;
                                 }
                             } catch (err) {
-                                console.log("errorrrr");
+                                //console.log("errorrrr");
                                 slide.errors = err.qmlErrors;
                             }
                         }

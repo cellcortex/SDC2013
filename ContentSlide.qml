@@ -4,6 +4,7 @@ EmptySlide {
     id: slide
     property string title
     property string content
+    property alias titleBox: qttitle
     Rectangle {
         id: qttitle
         color: "#77000000"

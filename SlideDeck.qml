@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Qt.labs.presentation 1.0
+import QtQuick.Particles 2.0
 
 AnimationPresentation {
     id: presentation
@@ -9,6 +10,7 @@ AnimationPresentation {
     //height: 768
 
     Keys.onTabPressed: { slides[currentSlide].focus = true; }
+    //FontLoader { id: digitalFont; source: "pictures/DISPLAY FREE TFB.ttf" }
 
     Keys.onPressed: {
         switch (event.key) {
@@ -59,29 +61,11 @@ AnimationPresentation {
         smooth: false
     }
 
-    ShaderEffect {
-        id: shader
-        visible: shaderSlide.visible
+    Item {
+        id: shaderholder
+        visible: false
         anchors.fill: parent
-        property real time: 0.0
-        NumberAnimation on time {
-            from: 0; to: 10; duration: 100000; running: true; loops: -1;
-        }
-        Behavior on opacity { PropertyAnimation { duration: 1000 } }
-        fragmentShader: "
-          varying highp vec2 qt_TexCoord0;
-          uniform float time;
-
-          void main(void) {
-              vec2 uPos = qt_TexCoord0;
-              uPos.y += sin( time + uPos.x * 6.0) * 0.45;
-              uPos.x += sin(-time + uPos.y * 3.0) * 0.25;
-              float value = sin(uPos.y * 2.5) + sin(uPos.x * 10.0);
-              float vertColor = 1.0/sqrt(abs(value))/4.0;
-              gl_FragColor = vec4(0., vertColor, 2. * vertColor, vertColor);
-          }"
     }
-
     EmptySlide {
         Text {
             color: "#77000000"
@@ -120,9 +104,16 @@ AnimationPresentation {
     AnimationSlide {
         id: consoleSlide
         transition: "pushright"
-//        anchors.fill:parent
-        animationStates: ["state1", "state2"]
+        animationStates: ["state1", "zx", "games", "magazines", "carrot", "consoles"]
         state: "state1"
+        Image {
+            id: carrot
+            x: parent.width * .25
+            y: parent.height * .5
+            Behavior on y { SpringAnimation { spring: 2; damping: .2 } }
+            source: "pictures/carrot.png"
+            fillMode: Image.PreserveAspectCrop
+        }
 
         Rectangle {
             id: gBox
@@ -138,15 +129,35 @@ AnimationPresentation {
             fillMode: Image.PreserveAspectCrop
         }
         Image {
-            x: parent.width * .5
+            id: zx81
+            x: parent.width * .45
             y: parent.height * .3
             source: "pictures/zx81.png"
             fillMode: Image.PreserveAspectCrop
+            Behavior on opacity { PropertyAnimation { duration: 500 } }
+        }
+
+        Image {
+            id: games
+            x: parent.width * .7
+            y: parent.height * .2
+            rotation: 10
+            source: "pictures/tv.png"
+            fillMode: Image.PreserveAspectCrop
+            Behavior on opacity { PropertyAnimation { duration: 500 } }
+        }
+        Image {
+            id: magazine
+            x: parent.width * .3
+            y: parent.height * .2
+            source: "pictures/magazine.png"
+            fillMode: Image.PreserveAspectCrop
+            Behavior on opacity { PropertyAnimation { duration: 500 } }
         }
         Image {
             id: ps3
             height: 600
-            x: parent.width * 2 / 10
+            x: parent.width * 3 / 10
             y: -10000
             fillMode: Image.PreserveAspectFit
             source: "pictures/ps31.png"
@@ -184,13 +195,42 @@ AnimationPresentation {
                  PropertyChanges { target: ps3; y: -10000 }
                  PropertyChanges { target: wii; y: -6000 }
                  PropertyChanges { target: xbox; y: -3000 }
-             },
-             State {
-                 name: "state2"
-                 PropertyChanges { target: ps3; y: 100 }
-                 PropertyChanges { target: wii; y: 100 }
-                 PropertyChanges { target: xbox; y: 100 }
-             }
+                 PropertyChanges { target: carrot; y: 1300 }
+                 PropertyChanges { target: magazine; opacity: 0 }
+                 PropertyChanges { target: games; opacity: 0 }
+                 PropertyChanges { target: zx81; opacity: 0 }
+            },
+            State {
+                name: "zx"
+                PropertyChanges { target: games; opacity: 0 }
+                PropertyChanges { target: magazine; opacity: 0 }
+                PropertyChanges { target: carrot; y: presentation.height }
+            },
+            State {
+                name: "games"
+                PropertyChanges { target: games; opacity: 1 }
+                PropertyChanges { target: magazine; opacity: 0 }
+                PropertyChanges { target: carrot; y: presentation.height }
+            },
+            State {
+                name: "magazines"
+                PropertyChanges { target: magazine; opacity: 1 }
+                PropertyChanges { target: carrot; y: presentation.height }
+            },
+            State {
+                name: "carrot"
+                PropertyChanges { target: carrot; y: presentation.height * .5 }
+            },
+            State {
+                name: "consoles"
+                PropertyChanges { target: ps3; y: 100 }
+                PropertyChanges { target: wii; y: 100 }
+                PropertyChanges { target: xbox; y: 100 }
+                PropertyChanges { target: magazine; opacity: 0 }
+                PropertyChanges { target: games; opacity: 0 }
+                PropertyChanges { target: zx81; opacity: 0 }
+                PropertyChanges { target: carrot; opacity: 0 }
+            }
         ]
     }
     Slide {
@@ -281,8 +321,24 @@ AnimationPresentation {
                     }
                 }
             }
-            Text {
-                text: "Broadcom BCM2835\n12mm x 12mm\nARM11"
+            Rectangle {
+                id: meta
+                height: parent.height * 1 / 3;
+                color: "#cc111111"
+                x: parent.width
+                width: description.width * 1.6
+                anchors.verticalCenter: parent.verticalCenter
+                Behavior on x { SpringAnimation { spring: 2; damping: .2 } }
+                Text {
+                    id: description
+                    text: "Broadcom BCM2835<br><br>12mm x 12mm<br><br>ARM11 CPU: 2mm²<br><br>24 GFLOPS GPU"
+                    font.family: "Courier"
+                    font.pixelSize: presentation.height / 30
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.leftMargin: presentation.width / 30
+                    color: "red"
+                }
             }
         }
         states: [
@@ -316,6 +372,10 @@ AnimationPresentation {
                     to: 1.0
                     duration: 300
                 }
+                PropertyChanges {
+                    target: meta
+                    x: presentation.width - description.width * 1.4
+                }
             },
             State {
                 name: "state3"
@@ -342,16 +402,28 @@ AnimationPresentation {
             }
         ]
     }
-    EmptySlide {
+    AnimationSlide {
+        animationStates: ["state1", "state2"]
+        state: "state1"
         id: nonode
         Rectangle {
             color: "#77000000"
             anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
             height: parent.height * 1 / 4
+            Text {
+                anchors.centerIn: parent
+                color: "#33ffffff"
+                text: "slow CPU - fast GPU"
+                font.pixelSize: qttitle.height / 4
+                font.family: "Impact"
+            }
         }
         Image {
+            id: node
             anchors.centerIn: parent
             source: "pictures/node.png"
+            opacity: 0
+            Behavior on opacity { NumberAnimation { duration: 500 } }
         }
         Image {
             id: nosign
@@ -364,7 +436,7 @@ AnimationPresentation {
         }
         SequentialAnimation {
             PauseAnimation { duration: 500 }
-            running: nonode.visible && !nonode.inTransition
+            running: nonode.visible && !nonode.inTransition && nonode.state == "state2"
             ParallelAnimation {
                 NumberAnimation { target: nosign; property: "opacity"; from: 0; to: 1; duration: 500; easing.type: Easing.OutQuart }
                 NumberAnimation { target: nosign; property: "scale"; from: 4; to: 1; duration: 500; easing.type: Easing.InOutQuart }
@@ -377,6 +449,19 @@ AnimationPresentation {
                 duration: 5000
             }
         }
+        states: [
+            State {
+                name: "state1"
+            },
+            State {
+                name: "state2"
+                PropertyChanges {
+                    target: node
+                    opacity: 1
+                }
+            }
+
+        ]
     }
 
     EmptySlide {
@@ -445,7 +530,7 @@ AnimationPresentation {
         title: "QML"
         code: "import QtQuick 2.0
 Rectangle {
-\tcolor: \"#C42C6B\"
+\tcolor: \"#a5c312\"
 \twidth: 300
 \theight: 200
 \tanchors.centerIn: parent
@@ -454,9 +539,9 @@ Rectangle {
 "
         cheatedCode: "import QtQuick 2.0
 Rectangle {
-\tcolor: \"#C42C6B\"
-\twidth: 100 * Math.cos(rotation/180*Math.PI) + 200
-\theight: 30+200 * Math.sin(rotation/360*Math.PI)
+\tcolor: \"#a5c312\"
+\twidth: 100 * (1+Math.cos(rotation/180*Math.PI)) + t.width
+\theight: 100 + 200 * Math.sin(rotation/360*Math.PI)
 \tanchors.centerIn: parent
 \tradius: 40
 \tNumberAnimation on rotation {
@@ -465,14 +550,41 @@ Rectangle {
 \t\tloops: -1
 \t\tduration: 3000
 \t}
+\tText {
+\t\tid: t
+\t\tcolor: \"white\"
+\t\tfont.pixelSize: 40
+\t\tfont.family: \"Arial\"
+\t\tanchors.centerIn: parent
+\t\ttext: \"<b>SDC</b>2013\"
+\t}
 }
 
 "
     }
-    CodeSlide {
+    EditorSlide {
         id: shaderSlide
         title: "Shaders"
+        autointerpret: true
+        showEditor: false
+        testparent: shaderparent
         code: "import QtQuick 2.0
+ShaderEffect {
+\tanchors.fill: parent
+\tproperty real time: 0.0
+\tNumberAnimation on time {
+\t\tfrom: 0; to: 10; duration: 100000; running: true; loops: -1;
+\t}
+\tfragmentShader: \"
+\t\tvarying highp vec2 qt_TexCoord0;
+\t\tuniform float time;
+\t\tvoid main(void) {
+\t\t\tvec2 uPos = qt_TexCoord0;
+\t\t\t// this is running about 100 million times pre second
+\t\t\tgl_FragColor = vec4(0., 0., 0., 0);
+\t\t}\"
+}"
+        cheatedCode: "import QtQuick 2.0
 ShaderEffect {
 \tanchors.fill: parent
 \tproperty real time: 0.0
@@ -491,19 +603,24 @@ ShaderEffect {
 \t\t\tgl_FragColor = vec4(0., vertColor, 2. * vertColor, vertColor);
 \t\t}\"
 }"
-        clip: false
-
+        //clip: false
+        Item {
+            z: -10
+            id: shaderparent
+            anchors.fill: parent
+        }
     }
     ContentSlide {
         transition: "pushup"
         title: "GPIO"
         content: "<ul><li>CPU pins that can be programmed</li>
 <li>Serial</li>
-<li>I<sup>2</sup>C</li>
+<li>I²C</li>
 <li>Data pins (in/out)</li>
 <li>PWM generator</li></ul>"
     }
-    CodeSlide {
+    EditorSlide {
+        autointerpret: false
         title: "C++"
         code: "#include <QtQuick/QQuickItem>
 #include <QtQml/QQmlExtensionPlugin>
@@ -592,16 +709,17 @@ GPIO {
 
 "
     }
-    Slide {
-        title: "Conclusions"
-
-            Text {
-                color: "#1e90ff"
-                font.pixelSize: 40
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: "@cellcortex | cellcortex@gmail.com | thomas.kroeber@nokia.com"
-            }
-
+    ContentSlide {
+        title: "Thanks!"
+        Text {
+            color: "#33ffffff"
+            text: "@cellcortex | cellcortex@gmail.com | thomas.kroeber@nokia.com"
+            anchors.right: parent.right
+            anchors.rightMargin: 100
+            y: titleBox.height - height - height / 2
+            font.pixelSize: titleBox.height / 8
+            font.family: "Impact"
+        }
     }
     Terminal {
         id: terminal
