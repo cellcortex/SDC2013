@@ -230,7 +230,7 @@ AnimationPresentation {
             }
         ]
     }
-    Slide {
+    EmptySlide {
         height: parent.height
         property string transition: "pushup"
         //anchors.fill: parent
@@ -248,14 +248,17 @@ AnimationPresentation {
             anchors.left: parent.horizontalCenter
             width: parent.width / 2
             fillMode: Image.PreserveAspectFit
-            Text {
-                font.pixelSize: 30
-                anchors { bottom: parent.bottom; right: parent.right }
-                text: "http://www.flickr.com/photos/jimkillock/7862804896"
-            }
+            //Text {
+            //    font.pixelSize: 30
+            //    anchors { bottom: parent.bottom; right: parent.right }
+            //    text: "http://www.flickr.com/photos/jimkillock/7862804896"
+            //}
+        }
+        LinkBox {
+            text: "http://www.flickr.com/photos/jimkillock/7862804896"
         }
     }
-    Slide {
+    EmptySlide {
         anchors.fill: parent
         Image {
             source: "pictures/7805302094_f85507e71d_b_d.jpg"
@@ -264,12 +267,9 @@ AnimationPresentation {
             anchors.centerIn: parent
             fillMode: Image.PreserveAspectCrop
         }
-        Text {
-            font.pixelSize: 30
-            anchors { bottom: parent.bottom; right: parent.right }
+        LinkBox {
             text: "http://www.flickr.com/photos/33511186@N00/7805302094/in/photostream"
         }
-
     }
     AnimationSlide {
         id: animationslide
@@ -563,7 +563,7 @@ Rectangle {
         id: shaderSlide
         title: "Shaders"
         autointerpret: true
-        showEditor: false
+        showEditor: true
         testparent: shaderparent
         code: "import QtQuick 2.0
 ShaderEffect {
@@ -605,6 +605,7 @@ ShaderEffect {
             z: -10
             id: shaderparent
             anchors.fill: parent
+            property Item test
         }
     }
     ContentSlide {

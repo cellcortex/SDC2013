@@ -10,15 +10,6 @@ EmptySlide {
         color: "#77000000"
         anchors { left: parent.left; right: parent.right; top: parent.top }
         height: parent.height * 1 / 3
-        /*Image {
-            id: qtlogo
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.margins: parent.width / 20
-            height: parent.height * .8
-            fillMode: Image.PreserveAspectFit
-            source: "pictures/Qt-logo.png"
-        }*/
         Text {
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
