@@ -52,8 +52,8 @@ EmptySlide {
             anchors.leftMargin: 100
             color: "#77000000"
             text: slide.title
-            font.pixelSize: title.height / 4
-            font.family: "Impact"
+            font.pixelSize: title.height / 3
+            font.family: headFont.name
         }
     }
 

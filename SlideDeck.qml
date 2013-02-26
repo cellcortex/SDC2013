@@ -4,13 +4,13 @@ import QtQuick.Particles 2.0
 
 AnimationPresentation {
     id: presentation
-    width: 1920
-    height: 1080
-    //width: 1024
-    //height: 768
+    //width: 1920
+    //height: 1080
+    width: 1024
+    height: 768
 
     Keys.onTabPressed: { slides[currentSlide].focus = true; }
-    //FontLoader { id: digitalFont; source: "pictures/DISPLAY FREE TFB.ttf" }
+    FontLoader { id: headFont; source: "pictures/Dirty Headline.ttf" }
 
     Keys.onPressed: {
         switch (event.key) {
@@ -61,22 +61,19 @@ AnimationPresentation {
         smooth: false
     }
 
-    Item {
-        id: shaderholder
-        visible: false
-        anchors.fill: parent
-    }
     EmptySlide {
-        Text {
-            color: "#77000000"
-            text: "JavaScript\non the\nRaspberry Pi"
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: 40
-            font.pixelSize: parent.height / 6
-            font.family: "Impact"
+        Item {
+            anchors { top: parent.top; left: parent.left; right: parent.right; bottom: titleBox.top }
+            Text {
+                color: "#77000000"
+                text: "JavaScript\non the\nRaspberry Pi"
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin: 90
+                font.pixelSize: parent.height / 5
+                font.family: headFont.name
+            }
         }
-
         Rectangle {
             id: titleBox
             anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
@@ -87,7 +84,7 @@ AnimationPresentation {
                 text: "Thomas Kroeber"
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.leftMargin: 40
+                anchors.leftMargin: 90
                 font.pixelSize: parent.height / 5
                 font.family: "Impact"
             }
@@ -108,7 +105,7 @@ AnimationPresentation {
         state: "state1"
         Image {
             id: carrot
-            x: parent.width * .25
+            x: parent.width * .3
             y: parent.height * .5
             Behavior on y { SpringAnimation { spring: 2; damping: .2 } }
             source: "pictures/carrot.png"
@@ -219,7 +216,7 @@ AnimationPresentation {
             },
             State {
                 name: "carrot"
-                PropertyChanges { target: carrot; y: presentation.height * .5 }
+                PropertyChanges { target: carrot; y: presentation.height - gBox.height - carrot.height/2 }
             },
             State {
                 name: "consoles"
@@ -238,11 +235,11 @@ AnimationPresentation {
         property string transition: "pushup"
         //anchors.fill: parent
         Text {
-            color: "white"
+            color: "black"
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
             font.pixelSize: 100
-            font.family: "Helvetica"
+            font.family: headFont.name
             text: "Eben Upton"
         }
         Image {
@@ -415,7 +412,7 @@ AnimationPresentation {
                 color: "#33ffffff"
                 text: "slow CPU - fast GPU"
                 font.pixelSize: qttitle.height / 4
-                font.family: "Impact"
+                font.family: headFont.name
             }
         }
         Image {

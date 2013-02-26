@@ -27,7 +27,7 @@ EmptySlide {
             color: "#33ffffff"
             text: title
             font.pixelSize: qttitle.height / 4
-            font.family: "Impact"
+            font.family: headFont.name
         }
     }
     Text {
