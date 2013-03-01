@@ -4,10 +4,10 @@ import QtQuick.Particles 2.0
 
 AnimationPresentation {
     id: presentation
-    //width: 1920
-    //height: 1080
-    width: 1024
-    height: 768
+    width: 1920
+    height: 1080
+    //width: 800
+    //height: 600
 
     Keys.onTabPressed: { slides[currentSlide].focus = true; }
     FontLoader { id: headFont; source: "pictures/Dirty Headline.ttf" }
@@ -724,8 +724,7 @@ GPIO {
         Text {
             color: "#333333"
             text: "@cellcortex | cellcortex@gmail.com | thomas.kroeber@nokia.com"
-            anchors.right: parent.right
-            anchors.rightMargin: 100
+            anchors.horizontalCenter: parent.horizontalCenter
             y: titleBox.height - height - height / 2
             font.pixelSize: titleBox.height / 8
             font.weight: Font.Bold
