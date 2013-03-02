@@ -6,10 +6,15 @@ AnimationPresentation {
     id: presentation
     width: 1920
     height: 1080
+    opacity: 0
+    Behavior on opacity { NumberAnimation { duration: 2000 } }
     //width: 800
     //height: 600
 
     Keys.onTabPressed: { slides[currentSlide].focus = true; }
+    Component.onCompleted: {
+        opacity = 1;
+    }
     FontLoader { id: headFont; source: "pictures/Dirty Headline.ttf" }
 
     Keys.onPressed: {

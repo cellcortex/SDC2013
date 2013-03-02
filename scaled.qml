@@ -1,16 +1,15 @@
 import QtQuick 2.0
 
 Rectangle {
-  id: scr
-  anchors.fill: parent
+  id: src
+  width: 1920
+  height: 1080
   color: "black"
-
+  
   SlideDeck {
     anchors.centerIn: parent
-    width: 1920
-    height: 1080
-    scale: src.width / width
-    focus: true
+    width: 1024
+    height: 768
     clip: true
   }
 }
