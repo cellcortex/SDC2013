@@ -517,6 +517,7 @@ AnimationPresentation {
             anchors.topMargin: parent.height * .05
             anchors.left: parent.left
             textFormat: Text.StyledText
+            lineHeight: 1.5
             text: "<ul><li>Cross Platform C++ Framework</li>
 <li><b>QML</b>: Declarative Language - much like (s)CSS</li>
 <li>OpenGL</li>
@@ -616,6 +617,34 @@ ShaderEffect {
             property Item test
         }
     }
+
+    EditorSlide {
+        title: "Canvas"
+        code: "import QtQuick 2.0
+Canvas {
+\tid: canvas
+\twidth: 140
+\theight: 140
+\tanchors.centerIn: parent
+\tonPaint: {
+\t\tvar ctx = canvas.getContext('2d');
+\t\t// Outer circle
+\t\tctx.arc(75,75,50,0,Math.PI*2,true);
+\t\tctx.moveTo(110,75);
+\t\t// Mouth (clockwise)
+\t\tctx.arc(75,75,35,0,Math.PI,false);
+\t\tctx.moveTo(65,65);
+\t\t// Eyes
+\t\tctx.arc(60,65,5,0,Math.PI*2,true);
+\t\tctx.moveTo(95,65);
+\t\tctx.arc(90,65,5,0,Math.PI*2,true);
+\t\tctx.lineWidth = 4
+\t\tctx.strokeStyle = \"#ffff00\"
+\t\tctx.stroke();
+\t}
+}"
+    }
+
     ContentSlide {
         transition: "pushup"
         title: "GPIO"
@@ -734,6 +763,23 @@ GPIO {
             font.pixelSize: titleBox.height / 8
             font.weight: Font.Bold
         }
+        Text {
+            color: "#999999"
+            text: "Questions?"
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 100
+            font.pixelSize: titleBox.height / 6
+            font.family: headFont.name
+        }
+        /*
+        Image {
+            source: "pictures/nokia-here-logo.jpg"
+            anchors.right: parent.right
+            anchors.rightMargin: 100
+            y: titleBox.height + (parent.height - titleBox.height) / 2 - height / 2
+        }
+        */
     }
     Terminal {
         id: terminal
