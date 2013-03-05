@@ -23,7 +23,6 @@ EmptySlide {
     }
     Text {
         anchors.top: qttitle.bottom
-        //anchors.leftMargin: parent.width / 20
         anchors.topMargin: parent.height * .05
         anchors.left: parent.left
         textFormat: Text.StyledText
