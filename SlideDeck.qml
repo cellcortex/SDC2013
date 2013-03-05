@@ -254,27 +254,9 @@ AnimationPresentation {
             anchors.left: parent.horizontalCenter
             width: parent.width / 2
             fillMode: Image.PreserveAspectFit
-            //Text {
-            //    font.pixelSize: 30
-            //    anchors { bottom: parent.bottom; right: parent.right }
-            //    text: "http://www.flickr.com/photos/jimkillock/7862804896"
-            //}
         }
         LinkBox {
             text: "http://www.flickr.com/photos/jimkillock/7862804896"
-        }
-    }
-    EmptySlide {
-        anchors.fill: parent
-        Image {
-            source: "pictures/7805302094_f85507e71d_b_d.jpg"
-            width: parent.masterWidth
-            height: parent.masterHeight
-            anchors.centerIn: parent
-            fillMode: Image.PreserveAspectCrop
-        }
-        LinkBox {
-            text: "http://www.flickr.com/photos/33511186@N00/7805302094/in/photostream"
         }
     }
     AnimationSlide {
@@ -803,14 +785,6 @@ http://qt-project.org/doc/qt-4.8/qdeclarativeintroduction.html"
             font.pixelSize: titleBox.height / 8
         }
 
-        /*
-        Image {
-            source: "pictures/nokia-here-logo.jpg"
-            anchors.right: parent.right
-            anchors.rightMargin: 100
-            y: titleBox.height + (parent.height - titleBox.height) / 2 - height / 2
-        }
-        */
     }
     Terminal {
         id: terminal
