@@ -15,11 +15,15 @@ h2. Warnings
 
 * Use GPIO pins with care. Without proper protection circruits you will harm your PI. 
 
-h2. Credits
+h2. Credits and License
+* I'm releasing this under MIT license. There are some exceptions for images and fonts that have been used. See those below
 
-* The code for the Editor and Terminal screens are derived from Andrew Baldwins talk code at https://gitorious.org/devaamo2012_qt5onrpi
-* Photos in the presentation are CC and copyright to the owners linked in the presentation. Check the license before
+* The code for the Editor and Terminal screens are derived from Andrew Baldwins talk code at https://gitorious.org/devaamo2012_qt5onrpi (also MIT licensed)
+* Some Photos in the presentation are CC and copyright to the owners linked in the presentation. Check the license before
  using them.
+* The beautiful title font used in the presentation is copyright: DIRTY HEADLINE, A TrueType Font by S. John Ross,
+ Cumberland; Games & Diversions, www.cumberlandgames.com (check the license in the corresponding text file)
+
 
 h2. Keys, if you actually get it to work:
 * F1: show/hide editor
