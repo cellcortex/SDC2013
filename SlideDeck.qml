@@ -4,8 +4,8 @@ import QtQuick.Particles 2.0
 
 AnimationPresentation {
     id: presentation
-    width: 1920
-    height: 1080
+    width: 1280
+    height: 720
     opacity: 0
     Behavior on opacity { NumberAnimation { duration: 2000 } }
     //width: 800
@@ -86,7 +86,7 @@ AnimationPresentation {
             color: "#77000000"
             Text {
                 color: "#333333"
-                text: "Thomas Kroeber"
+                text: "Thomas Kroeber\n@cellcortex"
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: 90
@@ -579,7 +579,7 @@ ShaderEffect {
 \tanchors.fill: parent
 \tproperty real time: 0.0
 \tNumberAnimation on time {
-\t\tfrom: 0; to: 10; duration: 100000; running: true; loops: -1;
+\t\tfrom: 0; to: 1; duration: 10000; running: true; loops: -1;
 \t}
 \tfragmentShader: \"
 \t\tvarying highp vec2 qt_TexCoord0;
@@ -628,6 +628,21 @@ Canvas {
 \tanchors.centerIn: parent
 \tonPaint: {
 \t\tvar ctx = canvas.getContext('2d');
+\t\tctx.arc(75,75,50,0,Math.PI*2,true);
+\t\tctx.lineWidth = 4
+\t\tctx.strokeStyle = \"#ffffff\"
+\t\tctx.stroke();
+\t}
+}"
+        cheatedCode: "import QtQuick 2.0
+Canvas {
+\tid: canvas
+\twidth: 140
+\theight: 140
+\tanchors.centerIn: parent
+\tproperty color lineColor: \"#ffff00\"
+\tonPaint: {
+\t\tvar ctx = canvas.getContext('2d');
 \t\t// Outer circle
 \t\tctx.arc(75,75,50,0,Math.PI*2,true);
 \t\tctx.moveTo(110,75);
@@ -639,7 +654,7 @@ Canvas {
 \t\tctx.moveTo(95,65);
 \t\tctx.arc(90,65,5,0,Math.PI*2,true);
 \t\tctx.lineWidth = 4
-\t\tctx.strokeStyle = \"#ffff00\"
+\t\tctx.strokeStyle = lineColor
 \t\tctx.stroke();
 \t}
 }"
@@ -764,14 +779,26 @@ GPIO {
             font.weight: Font.Bold
         }
         Text {
+            id: more
             color: "#999999"
-            text: "Questions?"
+            text: "want more?"
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 100
             font.pixelSize: titleBox.height / 6
             font.family: headFont.name
         }
+        Text {
+            color: "#999999"
+            text: "http://www.raspberrypi.org
+http://qt-project.org/wiki/RaspberryPi_Beginners_guide
+http://qt-project.org/doc/qt-4.8/qdeclarativeintroduction.html"
+            anchors.top: more.bottom
+            anchors.left: parent.left
+            anchors.leftMargin: 100
+            font.pixelSize: titleBox.height / 8
+        }
+
         /*
         Image {
             source: "pictures/nokia-here-logo.jpg"

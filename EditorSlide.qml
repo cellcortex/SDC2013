@@ -143,9 +143,15 @@ EmptySlide {
         }
         Rectangle {
             color: slide.errors ? "red" : "green"
-            width: 50
+            width: errorText.width
             height: 50
             anchors { right: parent.right; bottom: parent.bottom; margins: 0 }
+            Behavior on width { SpringAnimation {id: spring; spring: 2; damping: 0.2 } }
+            Text {
+                id: errorText
+                text: slide.errors ? slide.errors[0].message : ""
+                color: "white"
+            }
         }
 
         Keys.onPressed: {
