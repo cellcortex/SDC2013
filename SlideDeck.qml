@@ -355,6 +355,10 @@ AnimationPresentation {
                     target: raspi
                     rotation: 0
                 }
+                PropertyChanges {
+                    target: cpuRegion
+                    border.width: 0
+                }
             },
             State {
                 name: "state2"
