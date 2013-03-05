@@ -1,9 +1,15 @@
 h1. SDC2013 presentation in Qt/QML
-* C++ libraries in experimental directory need to be (cross) compiled. 
 
-h2. Prerequisites
-* Qt5 http://qt-project.org
-* This builds on the http://qt.gitorious.org/qt-labs/qml-presentation-system which has to be installed in the system 
+* Guide to get Qt running on the PI: http://qt-project.org/wiki/RaspberryPi_Beginners_guide
+* C++ libraries in experimental directory need to be (cross) compiled. 
+* On other platforms the installation should be something like:
+
+
+h2. Prerequisites / Installation
+
+* get and install Qt5 http://qt-project.org 
+* get and install http://qt.gitorious.org/qt-labs/qml-presentation-system
+* in experimental directory: qmake; make (for RPI you have to cross compile)
 
 h2. Warnings
 
@@ -15,3 +21,11 @@ h2. Credits
 * Photos in the presentation are CC and copyright to the owners linked in the presentation. Check the license before
  using them.
 
+h2. Keys, if you actually get it to work:
+* F1: show/hide editor
+* TAB: focus editor
+* ESC: de-focus editor / exit presentation
+* F2: Show Terminal
+* F3: Show 'cheat' solution in EditorSlide
+* F4: Go to first error in EditorSlide
+* PgUp/PgDown prev/next slide/step
