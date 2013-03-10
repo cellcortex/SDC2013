@@ -1,6 +1,7 @@
 h1. SDC2013 presentation in Qt/QML
 
 * Guide to get Qt running on the PI: http://qt-project.org/wiki/RaspberryPi_Beginners_guide
+* Alternatively, another guide without cross-compiling. Haven't tried this myself: http://thebugfreeblog.blogspot.it/2013/03/bring-up-qt-501-on-raspberry-pi-with.html
 * C++ libraries in experimental directory need to be (cross) compiled. 
 * On other platforms the installation should be something like:
 
