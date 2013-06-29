@@ -1,13 +1,36 @@
-h1. JSConf presentation in Qt/QML
+h1. SDC2013 presentation in Qt/QML
 
-* C++ libraries in experimental directory need to be cross compiled for raspberry pi. 
+* Guide to get Qt running on the PI: http://qt-project.org/wiki/RaspberryPi_Beginners_guide
+* Alternatively, another guide without cross-compiling. Haven't tried this myself: http://thebugfreeblog.blogspot.it/2013/03/bring-up-qt-501-on-raspberry-pi-with.html
+* C++ libraries in experimental directory need to be (cross) compiled. 
+* On other platforms the installation should be something like: qmake && make && sudo make install
+
+
+h2. Prerequisites / Installation
+
+* get and install Qt5 http://qt-project.org 
+* get and install http://qt.gitorious.org/qt-labs/qml-presentation-system
+* in experimental directory: qmake; make (for RPI you have to cross compile)
 
 h2. Warnings
 
-* Use GPIO pins with care. Without proper protection circruits you will harm your PI.
+* Use GPIO pins with care. Without proper protection circruits you will harm your PI. 
 
-h2. Credits
+h2. Credits and License
+* I'm releasing this under MIT license. There are some exceptions for images and fonts that have been used. See those below
 
-* The code for the Editor and Terminal screens are derived from Andrew Baldwins talk code at https://gitorious.org/devaamo2012_qt5onrpi
-* Photos in the presentation are CC and copyright to the owners linked in the presentation
+* The code for the Editor and Terminal screens are derived from Andrew Baldwins talk code at https://gitorious.org/devaamo2012_qt5onrpi (also MIT licensed)
+* Some Photos in the presentation are CC and copyright to the owners linked in the presentation. Check the license before
+ using them.
+* The beautiful title font used in the presentation is copyright: DIRTY HEADLINE, A TrueType Font by S. John Ross,
+ Cumberland; Games & Diversions, www.cumberlandgames.com (check the license in the corresponding text file)
 
+
+h2. Keys, if you actually get it to work:
+* F1: show/hide editor
+* TAB: focus editor
+* ESC: de-focus editor / exit presentation
+* F2: Show Terminal
+* F3: Show 'cheat' solution in EditorSlide
+* F4: Go to first error in EditorSlide
+* PgUp/PgDown prev/next slide/step

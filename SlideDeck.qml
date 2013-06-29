@@ -1,15 +1,42 @@
+/*
+Copyright (C) 2013 Thomas Kroeber
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 import QtQuick 2.0
 import Qt.labs.presentation 1.0
 import QtQuick.Particles 2.0
 
 AnimationPresentation {
     id: presentation
-    width: 1920
-    height: 1080
+    width: 1280
+    height: 720
+    opacity: 0
+    Behavior on opacity { NumberAnimation { duration: 2000 } }
     //width: 800
     //height: 600
 
     Keys.onTabPressed: { slides[currentSlide].focus = true; }
+    Component.onCompleted: {
+        opacity = 1;
+    }
     FontLoader { id: headFont; source: "pictures/Dirty Headline.ttf" }
 
     Keys.onPressed: {
@@ -81,7 +108,7 @@ AnimationPresentation {
             color: "#77000000"
             Text {
                 color: "#333333"
-                text: "Thomas Kroeber"
+                text: "Thomas Kroeber\n@cellcortex"
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: 90
@@ -249,11 +276,6 @@ AnimationPresentation {
             anchors.left: parent.horizontalCenter
             width: parent.width / 2
             fillMode: Image.PreserveAspectFit
-            //Text {
-            //    font.pixelSize: 30
-            //    anchors { bottom: parent.bottom; right: parent.right }
-            //    text: "http://www.flickr.com/photos/jimkillock/7862804896"
-            //}
         }
         LinkBox {
             text: "http://www.flickr.com/photos/jimkillock/7862804896"
@@ -349,6 +371,10 @@ AnimationPresentation {
                 PropertyChanges {
                     target: raspi
                     rotation: 0
+                }
+                PropertyChanges {
+                    target: cpuRegion
+                    border.width: 0
                 }
             },
             State {
@@ -512,6 +538,7 @@ AnimationPresentation {
             anchors.topMargin: parent.height * .05
             anchors.left: parent.left
             textFormat: Text.StyledText
+            lineHeight: 1.5
             text: "<ul><li>Cross Platform C++ Framework</li>
 <li><b>QML</b>: Declarative Language - much like (s)CSS</li>
 <li>OpenGL</li>
@@ -573,7 +600,7 @@ ShaderEffect {
 \tanchors.fill: parent
 \tproperty real time: 0.0
 \tNumberAnimation on time {
-\t\tfrom: 0; to: 10; duration: 100000; running: true; loops: -1;
+\t\tfrom: 0; to: 1; duration: 10000; running: true; loops: -1;
 \t}
 \tfragmentShader: \"
 \t\tvarying highp vec2 qt_TexCoord0;
@@ -611,6 +638,49 @@ ShaderEffect {
             property Item test
         }
     }
+
+    EditorSlide {
+        title: "Canvas"
+        code: "import QtQuick 2.0
+Canvas {
+\tid: canvas
+\twidth: 140
+\theight: 140
+\tanchors.centerIn: parent
+\tonPaint: {
+\t\tvar ctx = canvas.getContext('2d');
+\t\tctx.arc(75,75,50,0,Math.PI*2,true);
+\t\tctx.lineWidth = 4
+\t\tctx.strokeStyle = \"#ffffff\"
+\t\tctx.stroke();
+\t}
+}"
+        cheatedCode: "import QtQuick 2.0
+Canvas {
+\tid: canvas
+\twidth: 140
+\theight: 140
+\tanchors.centerIn: parent
+\tproperty color lineColor: \"#ffff00\"
+\tonPaint: {
+\t\tvar ctx = canvas.getContext('2d');
+\t\t// Outer circle
+\t\tctx.arc(75,75,50,0,Math.PI*2,true);
+\t\tctx.moveTo(110,75);
+\t\t// Mouth (clockwise)
+\t\tctx.arc(75,75,35,0,Math.PI,false);
+\t\tctx.moveTo(65,65);
+\t\t// Eyes
+\t\tctx.arc(60,65,5,0,Math.PI*2,true);
+\t\tctx.moveTo(95,65);
+\t\tctx.arc(90,65,5,0,Math.PI*2,true);
+\t\tctx.lineWidth = 4
+\t\tctx.strokeStyle = lineColor
+\t\tctx.stroke();
+\t}
+}"
+    }
+
     ContentSlide {
         transition: "pushup"
         title: "GPIO"
@@ -729,6 +799,27 @@ GPIO {
             font.pixelSize: titleBox.height / 8
             font.weight: Font.Bold
         }
+        Text {
+            id: more
+            color: "#999999"
+            text: "want more?"
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 100
+            font.pixelSize: titleBox.height / 6
+            font.family: headFont.name
+        }
+        Text {
+            color: "#999999"
+            text: "http://www.raspberrypi.org
+http://qt-project.org/wiki/RaspberryPi_Beginners_guide
+http://qt-project.org/doc/qt-4.8/qdeclarativeintroduction.html"
+            anchors.top: more.bottom
+            anchors.left: parent.left
+            anchors.leftMargin: 100
+            font.pixelSize: titleBox.height / 8
+        }
+
     }
     Terminal {
         id: terminal
