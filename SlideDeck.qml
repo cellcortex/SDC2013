@@ -262,14 +262,14 @@ AnimationPresentation {
     EmptySlide {
         anchors.fill: parent
         Image {
-            source: "pictures/7805302094_f85507e71d_b_d.jpg"
+            source: "pictures/case.png"
             width: parent.masterWidth
             height: parent.masterHeight
             anchors.centerIn: parent
             fillMode: Image.PreserveAspectCrop
         }
         LinkBox {
-            text: "http://www.flickr.com/photos/33511186@N00/7805302094/in/photostream"
+            text: "http://www.thedailybrick.co.uk/lego-sets/custom/lego-custom-raspberry-pi-case.html"
         }
     }
     AnimationSlide {
