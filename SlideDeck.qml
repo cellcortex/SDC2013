@@ -557,7 +557,7 @@ AnimationPresentation {
         title: "QML"
         code: "import QtQuick 2.0
 Rectangle {
-\tcolor: \"#a5c312\"
+\tcolor: \"#124191\"
 \twidth: 300
 \theight: 200
 \tanchors.centerIn: parent
@@ -566,7 +566,7 @@ Rectangle {
 "
         cheatedCode: "import QtQuick 2.0
 Rectangle {
-\tcolor: \"#a5c312\"
+\tcolor: \"#124191\"
 \twidth: 100 * (1+Math.cos(rotation/180*Math.PI)) + t.width
 \theight: 100 + 200 * Math.sin(rotation/360*Math.PI)
 \tanchors.centerIn: parent
@@ -583,7 +583,7 @@ Rectangle {
 \t\tfont.pixelSize: 40
 \t\tfont.family: \"Arial\"
 \t\tanchors.centerIn: parent
-\t\ttext: \"<b>SDC</b>2013\"
+\t\ttext: \"<b>here</b>\"
 \t}
 }
 
@@ -638,7 +638,7 @@ ShaderEffect {
             property Item test
         }
     }
-
+/*
     EditorSlide {
         title: "Canvas"
         code: "import QtQuick 2.0
@@ -680,7 +680,7 @@ Canvas {
 \t}
 }"
     }
-
+*/
     ContentSlide {
         transition: "pushup"
         title: "GPIO"
